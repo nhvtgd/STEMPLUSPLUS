@@ -1,0 +1,47 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ImagePreview" >
+
+    <LinearLayout
+        android:id="@+id/top_layout_image_preview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" >
+
+        <ImageView
+            android:id="@+id/image_imagePreview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        >
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_button_image_preview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal" >
+
+        <Button
+            android:id="@+id/delete_imagePreview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="50dp"
+            android:gravity="center"
+            android:text="@android:string/cut" />
+
+        <Button
+            android:id="@+id/okay_imagePreview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="50dp"
+            android:gravity="center"
+            android:text="@android:string/ok" />
+    </LinearLayout>
+
+</RelativeLayout>
