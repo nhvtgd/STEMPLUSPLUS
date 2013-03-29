@@ -7,11 +7,7 @@ import android.content.Context;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
-/**
- * Parsedatabase API to communicate with parse server
- * @author trannguyen
- *
- */
+
 public class ParseDatabase {
 	public void initProject(Context context) {
 		Parse.initialize(context, "iqIztkJYN0f0Y8iPYLjhpVYYFpV9zmnpBAoKTP1s",

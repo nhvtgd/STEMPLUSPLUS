@@ -95,13 +95,13 @@
         >
     </HorizontalScrollView> -->
 
-    <com.example.helperClass.MyHorizontalLayout
+    <mit.edu.stemplusplus.helper.MyHorizontalLayout
         android:layout_alignParentTop="true"
         android:id="@+id/mygallery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/linearLayout_customized_cam"
         android:orientation="horizontal" >
-    </com.example.helperClass.MyHorizontalLayout>
+    </mit.edu.stemplusplus.helper.MyHorizontalLayout>
 
 </RelativeLayout>
