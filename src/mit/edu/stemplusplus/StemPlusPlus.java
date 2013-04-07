@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 
 public class StemPlusPlus extends Activity {
-	public static final String[] PROJECT_PARSE = {"project"};
+	public static final String PROJECT_PARSE = "project";
 	public static String USERNAME_PARSE = "username";
 	public static String PASSWORD_PARSE = "password";
 	public static int REPUTATION_POINTS_PARSE = 0;

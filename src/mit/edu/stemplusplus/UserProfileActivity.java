@@ -16,11 +16,11 @@ public class UserProfileActivity extends StemPlusPlus {
         user.setText(StemPlusPlus.USER_PARSE);
         reputation_points.setText(StemPlusPlus.REPUTATION_POINTS_PARSE);
         LinearLayout ll = (LinearLayout) findViewById(R.id.user_profile_past_projects);
-        for(String project : StemPlusPlus.PROJECT_PARSE){
+        /*for(String project : StemPlusPlus.PROJECT_PARSE){
             TextView tv = new TextView(this);
             tv.setText(project);
             ll.addView(tv);
-        }
+        }*/
     }
 
     @Override
