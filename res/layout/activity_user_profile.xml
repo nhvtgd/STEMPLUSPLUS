@@ -55,8 +55,8 @@
         android:contentDescription="@+id/user_profile_activity_user_image"
         android:src="@android:drawable/ic_menu_myplaces" />
 
-    <LinearLayout
-        android:id="@+id/user_profile_past_projects"
+    <ListView
+        android:id="@+id/user_profile_past_projects_list_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" 
         android:layout_below="@+id/user_profile_activity_past_projects_label"
