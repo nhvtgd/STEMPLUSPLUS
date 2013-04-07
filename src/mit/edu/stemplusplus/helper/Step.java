@@ -12,6 +12,7 @@ public class Step {
     private List<Comment> comments;
     private String description;
     private List<Step> pastVersions;
+    
     public Step(String d) {
         description = d;
         comments = new ArrayList<Comment>();

@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+
 import mit.edu.stemplusplus.helper.MyHorizontalLayout;
 
 import android.app.Activity;
@@ -32,38 +33,39 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageButton;
 import android.widget.ListView;
+
 /**
- * This class is to create a customized camera that let the user has 
- * more options when taking picture
+ * This class is to create a customized camera that let the user has more
+ * options when taking picture
+ * 
  * @author trannguyen
- *
+ * 
  */
-public class CustomCameraActivity extends Activity implements
+public class CustomCameraActivity extends StemPlusPlus implements
 		SurfaceHolder.Callback {
-	
+
 	protected static final int MEDIA_TYPE_IMAGE = 1;
 	protected static final int REQUEST_CODE = 10;
-	
+
 	Camera camera;
-	
+
 	/** the view of the camera */
 	SurfaceView surfaceView = null;
-	
+
 	/** camera holder */
 	SurfaceHolder surfaceHolder;
-	
+
 	/** constant to check if the camera is in the preview mode */
 	boolean previewing = false;
-	
+
 	/** inflater to create view from xml file */
 	LayoutInflater controlInflater = null;
-	
-	
+
 	Activity act = this;
-	
+
 	/** layout to add the image horizontally */
 	MyHorizontalLayout myHorizontalLayout;
-	
+
 	/** Array to hold the displayed image */
 	ArrayList<String> activityPicture = new ArrayList<String>();
 
@@ -73,15 +75,6 @@ public class CustomCameraActivity extends Activity implements
 		setContentView(R.layout.activity_custom_camera);
 		Log.d("load layout", "Ok");
 		// get the String of array image from gallery
-		Intent intent = getIntent();
-		if (intent.getStringArrayExtra("gallery") != null) {
-			String[] imagePath = intent.getStringArrayExtra("gallery");
-			for (String i : imagePath) {
-				Log.d("image here", i);
-				activityPicture.add(Environment.getExternalStorageDirectory()
-						+ i);
-			}
-		}
 
 		// setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
@@ -110,13 +103,23 @@ public class CustomCameraActivity extends Activity implements
 
 		// if there is image already in the activity Picture;
 		myHorizontalLayout.setArrayList(activityPicture);
-		Log.d("after", "okay");
+
+		Intent intent = getIntent();
+		if (intent.getStringArrayListExtra(GALLERY_INTENT) != null) {
+			ArrayList<String> imagePath = intent
+					.getStringArrayListExtra(GALLERY_INTENT);
+			for (String i : imagePath) {
+				Log.d("image here", i);
+				myHorizontalLayout.add(i);
+			}
+		}
 		galery.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(v.getContext(),
 						CustomizedGallery.class);
+				intent.putStringArrayListExtra(IMAGE_INTENT, activityPicture);
 				startActivity(intent);
 
 			}
@@ -138,22 +141,16 @@ public class CustomCameraActivity extends Activity implements
 
 		done.setOnClickListener(new OnClickListener() {
 
-			/**
-			 * This will be called to send all of the pictures to the projects displays
-			 * screen****/
-			
 			@Override
 			public void onClick(View v) {
-				/*if (activityPicture.size() > 0) {
+				if (activityPicture.size() > 0) {
 					Intent i = new Intent(v.getContext(),
 							AllProjectDisplayActivity.class);
-					String[] picturePath = new String[activityPicture.size()];
-					for (int pic = 0; pic < activityPicture.size(); pic++) {
-						picturePath[pic] = activityPicture.get(pic);
-					}
-					i.putExtra("gallery", picturePath);
+
+					i.putStringArrayListExtra(IMAGE_INTENT, activityPicture);
 					startActivity(i);
-				}*/
+					finish();
+				}
 
 			}
 		});
@@ -209,13 +206,11 @@ public class CustomCameraActivity extends Activity implements
 
 	@Override
 	protected void onPause() {
+		// TODO Auto-generated method stub
 		super.onPause();
 		releaseCamera();
 	}
 
-	/**
-	 * Stop the camera
-	 */
 	private void releaseCamera() {
 		if (camera != null) {
 			camera.stopPreview();
@@ -225,11 +220,6 @@ public class CustomCameraActivity extends Activity implements
 		}
 	}
 
-	/**
-	 * Wrapper class to get the Uri from the input type
-	 * @param type integer constant i.e image, video
-	 * @return Uri
-	 */
 	private static Uri getOutputMediaFireUri(int type) {
 		return Uri.fromFile(getOutputMediaFile(type));
 	}
@@ -269,7 +259,6 @@ public class CustomCameraActivity extends Activity implements
 		return mediaFile;
 	}
 
-	
 	/**
 	 * Call back to take action when picture is taken
 	 */
@@ -335,7 +324,51 @@ public class CustomCameraActivity extends Activity implements
 		}
 	};
 
-
+	/**
+	 * Call back to take action when picture is taken
+	 */
+	/*
+	 * private PictureCallback mPicture = new PictureCallback() {
+	 * 
+	 * @Override public void onPictureTaken(byte[] data, Camera arg1) { File
+	 * pictureFile = getOutputMediaFile(MEDIA_TYPE_IMAGE); if (pictureFile ==
+	 * null) { Log.d("bad luck",
+	 * "Error creating media file, check storage permissions"); return; }
+	 * 
+	 * try {
+	 * 
+	 * Matrix mat = new Matrix(); mat.postRotate(90);
+	 * 
+	 * Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length); Bitmap
+	 * correctBmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(),
+	 * bmp.getHeight(), mat, true);
+	 * 
+	 * 
+	 * Log.d("save file before", pictureFile.getPath()); // create output stream
+	 * to store picture to the file FileOutputStream fos = new
+	 * FileOutputStream(pictureFile); //BufferedOutputStream bos = new
+	 * BufferedOutputStream(fos); //
+	 * correctBmp.compress(Bitmap.CompressFormat.PNG, 50, bos); // bos.flush();
+	 * // bos.close(); fos.write(data); fos.close(); sendBroadcast(new
+	 * Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" +
+	 * Environment.getExternalStorageDirectory()))); Log.d("save file",
+	 * pictureFile.getPath());
+	 * 
+	 * // add the picture to the horizontal layout
+	 * myHorizontalLayout.add(pictureFile.getPath());
+	 * 
+	 * 
+	 * fos.close(); } catch (FileNotFoundException e) { Log.d("bad luck",
+	 * "File not found:" + e.getMessage()); } catch (IOException e) {
+	 * Log.d("bad luck", "Error accessing file: " + e.getMessage()); } try {//
+	 * sleep for 300s to wait for the picture to be done saving
+	 * Thread.sleep(300); } catch (InterruptedException e) { // TODO
+	 * Auto-generated catch block e.printStackTrace(); } // let the user
+	 * continue taking picture camera.setDisplayOrientation(90);
+	 * camera.startPreview(); }
+	 * 
+	 * };
+	 */
 	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		releaseCamera();

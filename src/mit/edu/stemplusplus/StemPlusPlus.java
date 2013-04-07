@@ -1,7 +1,10 @@
 package mit.edu.stemplusplus;
 
-import android.os.Bundle;
+import java.util.ArrayList;
+
+import mit.edu.stemplusplus.helper.Project;
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.Menu;
 
 public class StemPlusPlus extends Activity {
@@ -14,7 +17,9 @@ public class StemPlusPlus extends Activity {
 	public static final String CATEGORY_PARSE = "category";
 	public static final String USER_PARSE = "user";
 	public static final String STEP_PARSE = "step";
-	
+	public static String IMAGE_INTENT = "image";
+	public static String GALLERY_INTENT = "gallery";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -26,6 +31,14 @@ public class StemPlusPlus extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_stem_plus_plus, menu);
 		return true;
+	}
+
+	public Project makeTestProject(ArrayList<String> imagePath,
+			String desciption) {
+		Project testProject = new Project(imagePath, desciption);
+
+		return testProject;
+
 	}
 
 }

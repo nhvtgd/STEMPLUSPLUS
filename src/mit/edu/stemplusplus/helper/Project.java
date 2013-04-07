@@ -17,11 +17,17 @@ public class Project {
 	private List<Comment> comments;
 	private String description;
 	private Date date;
-	// should this hold the original date or the date of the most recent change?
 	private String category;
-	
-	public Project(){
-		
+	private ArrayList<? extends Object> images;
+
+	public Project() {
+
+	}
+
+	/** this is for testing only, don't use */
+	public Project(ArrayList<? extends Object> imagePath, String description) {
+		this.images = imagePath;
+		this.description = description;
 	}
 
 	public Project(String n, User u, String d, String c) {
@@ -34,8 +40,12 @@ public class Project {
 		date = new Date();
 		category = c;
 	}
-	
-	
+
+	public Project(String n, User u, String d, String c,
+			ArrayList<? extends Object> images) {
+		this(n, u, d, c);
+		this.images = images;
+	}
 
 	public void setName(String name) {
 		this.name = name;
@@ -125,5 +135,13 @@ public class Project {
 
 	public int getRank() {
 		return rank.getRank();
+	}
+
+	public ArrayList<? extends Object> getImages() {
+		return images;
+	}
+
+	public void setImages(ArrayList<? extends Object> images) {
+		this.images = images;
 	}
 }
