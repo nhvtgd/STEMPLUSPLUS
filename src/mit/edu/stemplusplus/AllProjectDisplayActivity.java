@@ -150,7 +150,7 @@ public class AllProjectDisplayActivity extends StemPlusPlus{
 
 				@Override
 				public void onClick(View v) {
-					Intent i = new Intent(v.getContext(), ProjectScreen.class);
+					//Intent i = new Intent(v.getContext(), ProjectScreen.class);
 
 				}
 			});
