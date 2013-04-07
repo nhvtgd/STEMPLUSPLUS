@@ -44,6 +44,10 @@
             android:name="mit.edu.stemplusplus.PreviewDemo"
             android:label="@string/title_activity_preview_demo" >
         </activity>
+        <activity
+            android:name="mit.edu.stemplusplus.AllProjectDisplayActivity"
+            android:label="@string/title_activity_all_project_display" >
+        </activity>
     </application>
 
 </manifest>
