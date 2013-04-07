@@ -25,6 +25,18 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="editNameHint">type new project name</string>
+    
+    <string name="title_activity_location_assignment">LocationAssignment</string>
+    <string name="new_project">New Project</string>
+    
+    <!-- Strings for User Profile -->
+    <string name="title_activity_user_profile">UserProfileActivity</string>
+    <string name="user_profile_activity_username_label">Username:</string>
+    <string name="user_profile_activity_past_projects_label">Past Projects:</string>
+    <string name="user_profile_activity_reputation_points_label">Reputation Points:</string>
+    <string name="empty_string"> </string>
+    <string name="user_profile_activity_user_image">User Image</string>
+    
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_stemplusplus_main">Stem Plus Plus Main</string>
 

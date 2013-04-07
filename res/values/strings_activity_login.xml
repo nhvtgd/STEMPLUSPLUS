@@ -1,0 +1,25 @@
+<resources>
+
+    <string name="title_activity_login">Login</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="menu_forgot_password">Recover lost password</string>
+    <string name="login_progress_signing_in">Signing in&#8230;</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="need_to_register">Not yet registered?</string>
+    <string name="action_register">Register</string>
+    <string name="title_activity_signin">Sign In</string>
+    <string name="title_activity_register">Register</string>
+    <string name="error_invalid_password">Passwords must be 6 or more characters</string>
+    <string name="already_registered">Already registered?</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="login_progress_registering">Registering...</string>
+    <string name="error_non_matching_passwords">The passwords do not match.</string>
+    <string name="login_or_register">Sign in or register for an account:</string>
+
+</resources>
