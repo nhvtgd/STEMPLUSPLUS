@@ -1,12 +1,20 @@
 package mit.edu.stemplusplus;
 
+import java.util.ArrayList;
+
+import mit.edu.stemplusplus.helper.Project;
+
 import android.os.Bundle;
 import android.view.Menu;
-import android.widget.LinearLayout;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class UserProfileActivity extends StemPlusPlus {
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -15,12 +23,17 @@ public class UserProfileActivity extends StemPlusPlus {
         TextView reputation_points = (TextView) findViewById(R.id.user_profile_activity_reputation_points);
         user.setText(StemPlusPlus.USER_PARSE);
         reputation_points.setText(StemPlusPlus.REPUTATION_POINTS_PARSE);
-        LinearLayout ll = (LinearLayout) findViewById(R.id.user_profile_past_projects);
-        for(String project : StemPlusPlus.PROJECT_PARSE){
-            TextView tv = new TextView(this);
-            tv.setText(project);
-            ll.addView(tv);
-        }
+        ListView lv = (ListView) findViewById(R.id.user_profile_past_projects_list_view);
+        ArrayAdapter<String> aa = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,getProject());
+        lv.setAdapter(aa);
+        OnItemClickListener clickHandler = new OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
+                // TODO
+                // call the appropriate class
+            }
+        };
+        lv.setOnItemClickListener(clickHandler);
     }
 
     @Override
@@ -28,6 +41,20 @@ public class UserProfileActivity extends StemPlusPlus {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.activity_user_profile, menu);
         return true;
+    }
+    private ArrayList<Project> getProjectByUser(){
+        ArrayList<Project> projects = new ArrayList<Project>();
+        //TODO
+        //get projects from parse server
+        return projects;
+    }
+    private String[] getProject(){
+        ArrayList<Project> p = getProjectByUser();
+        String[] strings = new String[p.size()];
+        for(int i=0; i<p.size(); i++){
+            strings[i] = p.toString();
+        }
+        return strings;
     }
 
 }
