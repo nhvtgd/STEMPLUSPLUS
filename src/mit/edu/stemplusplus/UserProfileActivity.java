@@ -1,11 +1,13 @@
 package mit.edu.stemplusplus;
 
+import mit.edu.stemplusplus.helper.NavigateActionBar;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class UserProfileActivity extends StemPlusPlus {
+public class UserProfileActivity extends NavigateActionBar{
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,11 @@ public class UserProfileActivity extends StemPlusPlus {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.activity_user_profile, menu);
         return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return navigate(item, this, true);
     }
 
 }
