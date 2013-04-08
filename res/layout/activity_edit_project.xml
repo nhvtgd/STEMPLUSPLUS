@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+ 
+ <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+ 
+  <LinearLayout 
+        android:id="@+id/linearOuter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="bottom"
+        android:orientation="horizontal" >
+   <Button
+        android:id="@+id/commit"
+        android:layout_width="140dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="@dimen/button_marginB"
+        android:layout_marginLeft="@dimen/button_marginL"
+        android:layout_marginRight="@dimen/button_marginR"
+        android:layout_marginTop="@dimen/button_marginT"
+        android:background="@drawable/custom_button_blue"
+        android:text="@string/commit_button"
+        android:layout_gravity="bottom"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/white"
+        android:textSize="@dimen/small_button_text_size"
+        android:onClick="commitProject"  />
+
+    <Button
+        android:id="@+id/preview"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="@dimen/button_marginB"
+        android:layout_marginLeft="@dimen/button_marginL"
+        android:layout_marginRight="@dimen/button_marginR"
+        android:layout_marginTop="@dimen/button_marginT"
+        android:background="@drawable/custom_button_blue"
+        android:text="@string/preview_button"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/white"
+        android:textSize="@dimen/small_button_text_size"
+        android:onClick="previewProject"  />
+     
+  </LinearLayout>
+ 
+
+	<RelativeLayout
+	android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+    <EditText
+        android:id="@+id/project_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text" 
+        android:hint="@string/Project_name" />
+		<ImageView
+            android:id="@+id/profile_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/project_name" />
+    
+    <TextView
+        android:id="@+id/projectDescription"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/project_name"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/grey"
+        android:gravity="left"
+        android:text="@string/Project_description"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/project_description"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/projectDescription"
+        android:inputType="text" 
+        android:hint="@string/Project_description"/>
+
+    <TextView
+        android:id="@+id/stepN"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="4dp"
+        android:layout_below="@id/project_description"
+        android:background="@color/grey"
+        android:gravity="left"
+        android:text="@string/Steps"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
+	<ListView
+        android:id="@+id/stepsList"
+         android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/stepN"
+        android:layout_alignTop="@id/linearOuter"
+        android:columnWidth="90dp"
+        android:gravity="left"
+        android:horizontalSpacing="10dp"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="10dp" />
+
+    <Button
+        android:id="@+id/add_step"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_marginBottom="@dimen/button_marginB"
+        android:layout_marginLeft="@dimen/button_marginL"
+        android:layout_marginRight="@dimen/button_marginR"
+        android:layout_marginTop="@dimen/button_marginT"
+        android:background="@drawable/custom_button_blue"
+        android:text="@string/step_button"
+        android:layout_below="@id/stepsList"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/white"
+        android:textSize="@dimen/small_button_text_size" 
+        android:onClick="addSteps" />
+	</RelativeLayout>
+</RelativeLayout>
+      
