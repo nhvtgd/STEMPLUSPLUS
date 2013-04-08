@@ -8,6 +8,6 @@
     <dimen name="button_marginB">4dp</dimen>
     
     <dimen name="main_button_text_size">25sp</dimen>
-    
+    <dimen name="small_button_text_size">10sp</dimen>
     
 </resources>

@@ -4,13 +4,16 @@ package mit.edu.stemplusplus;
  * This is the first screen that the user can choose from
  */
 
-import android.os.Bundle;
+import mit.edu.stemplusplus.helper.NavigateActionBar;
+
 import android.app.Activity;
 import android.graphics.Typeface;
+import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MenuScreen extends Activity {
+public class MenuScreen extends NavigateActionBar{
 
 	
 	@Override
@@ -30,6 +33,9 @@ public class MenuScreen extends Activity {
         vidBtn.setTypeface(robotoThin); 
 		
 	}
-
-
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    return navigate(item, this, true);
+	}
 }

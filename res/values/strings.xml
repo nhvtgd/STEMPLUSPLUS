@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">StemPlusPlus</string>
-    <string name="hello_world">Hello world!</string>
+    <!-- Strings for the Main Menu -->
+    <string name="app_name">Stem Plus Plus</string>
     <string name="title_activity_menu_screen">MenuScreen</string>
     <string name="title_activity_preview_demo">PreviewDemo</string>
     <string name="mainprompt_MenuScreen">What do you want to do?</string>
-    <string name="hello">Hello World, PhotoIntentActivity!</string>
-    <string name="takePicture_MenuScreen">Post Project</string>
     <string name="btnIntendV_MenuScreen">Browse my Projects</string>
+
+    <!-- Strings for Image Preview -->
+    <string name="okay_imagePreview">Okayd the Image Previewed</string>
+    <string name="delete_imagePreview">Deleted the Image Previewed</string>
+    <string name="hello">Hello World, PhotoIntentActivity!</string>
+    <string name="takePicture_MenuScreen">Take Picture</string>
     <string name="cannot">Cannot</string>
     <string name="album_name">CameraSample</string>
     <string name="menu_settings">Settings</string>
@@ -21,6 +25,7 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="editNameHint">type new project name</string>
+    
     <string name="title_activity_location_assignment">LocationAssignment</string>
     <string name ="commit_button">Commit</string>
     <string name ="preview_button">Preview</string>
@@ -33,6 +38,24 @@
     <string name = "title_activity_project">ProjectActivity</string>
     <string name = "title_activity_store_project">StoreProjectActivity</string>
     <string name = "title_activity_commit_message">CommitMessage</string>
-    <string name ="Steps">Steps</string>
+    <string name = "Steps">Steps</string>
+    <string name="new_project">New Project</string>
+    
+    <!-- Strings for User Profile -->
+    <string name="title_activity_user_profile">UserProfileActivity</string>
+    <string name="user_profile_activity_username_label">Username:</string>
+    <string name="user_profile_activity_past_projects_label">Past Projects:</string>
+    <string name="user_profile_activity_reputation_points_label">Reputation Points:</string>
+    <string name="empty_string"> </string>
+    <string name="user_profile_activity_user_image">User Image</string>
+    
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_stemplusplus_main">Stem Plus Plus Main</string>
+
+    <!-- All Project Display -->
+    <string name="project_description_allProjecDisplay">Project Description</string>
+    <string name="add_project_all_project_display">Add Project</string>
+    <string name="title_activity_project_screen">ProjectScreen</string>
+    <string name="title_activity_all_project_display">All Project</string>
 
 </resources>

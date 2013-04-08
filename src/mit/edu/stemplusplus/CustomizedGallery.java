@@ -1,13 +1,18 @@
 package mit.edu.stemplusplus;
 
+import java.util.ArrayList;
+
+
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -25,7 +30,7 @@ import android.widget.Toast;
  * @author trannguyen
  * 
  */
-public class CustomizedGallery extends Activity {
+public class CustomizedGallery extends StemPlusPlus {
 	/** size of the array */
 	private int count;
 	/** Array of Bitmap to store image */
@@ -36,11 +41,18 @@ public class CustomizedGallery extends Activity {
 	private String[] arrPath;
 	/** ImageAdapter for the array Bitmap */
 	private ImageAdapter imageAdapter;
+	
+	ArrayList<String> imageFromCam = new ArrayList();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_customized_gallery);
+		
+		Intent fromCamIntent = getIntent();
+		if (fromCamIntent.getStringArrayListExtra(IMAGE_INTENT) != null)
+			imageFromCam.addAll(fromCamIntent.getStringArrayListExtra(IMAGE_INTENT));
+		
 		// create the SQL database for query
 		final String[] columns = { MediaStore.Images.Media.DATA,
 				MediaStore.Images.Media._ID };
@@ -94,27 +106,24 @@ public class CustomizedGallery extends Activity {
 							"You've selected Total " + cnt + " image(s).",
 							Toast.LENGTH_LONG).show();
 					Log.d("SelectedImages", selectImages);
-					
-					/***************************/
 
-					/* send these pictures to new activity that has all of the projects 
-//					Intent backToCam = new Intent(v.getContext(),
-//							AllProjectDisplayActivity.class);
- * 	
- */
-/*					String[] select = new String[cnt];
+					// send these pictures to new activity
+					Intent backToCam = new Intent(v.getContext(),
+							CustomCameraActivity.class);
+					
 					int counter = 0;
-					int match = 0;
-					while (match != cnt || counter >= thumbnailSelection.length) {
+					
+					while ( counter < thumbnailSelection.length) {
 						if (thumbnailSelection[counter]) {
-							select[match] = arrPath[counter];
-							match++;
+							imageFromCam.add(arrPath[counter]);
+							
 						}
 						counter++;
 					}
 
+
 					backToCam.putExtra("gallery", select);
-					startActivity(backToCam);*/
+					startActivity(backToCam);
 					
 					
 					
@@ -128,10 +137,19 @@ public class CustomizedGallery extends Activity {
 //					 returnIntent.putExtra("picture",b);
 //					 setResult(RESULT_OK,returnIntent);     
 //					 finish();
+					backToCam.putStringArrayListExtra(GALLERY_INTENT, imageFromCam);
+					startActivity(backToCam);
 				}
 
 			}
 		});
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.layout.activity_customized_gallery, menu);
+		return true;
 	}
 
 	
@@ -229,20 +247,6 @@ public class CustomizedGallery extends Activity {
 
 	}
 
-	// private class LoadImage extends AsyncTask<Integer, Void, Bitmap>{
-	//
-	// @Override
-	// protected Bitmap doInBackground(Integer... params) {
-	// // TODO Auto-generated method stub
-	// return thumbnails[params[0]];
-	// }
-	//
-	// @Override
-	// protected void onPostExecute(Bitmap result) {
-	// holder.imageView.setImageBitMap(result);
-	// }
-	//
-	// }
 
 	/**
 	 * The view holder to store the check box and imageView 

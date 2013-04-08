@@ -15,6 +15,7 @@ public class Step {
     private String description;
     private Bitmap media;
     private List<Step> pastVersions;
+    
     public Step(String d) {
         description = d;
         comments = new ArrayList<Comment>();

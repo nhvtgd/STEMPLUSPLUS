@@ -57,6 +57,31 @@
          <activity
             android:name="mit.edu.stemplusplus.commitMessageActivity"
             android:label="@string/title_activity_commit_message" >
+             </activity>
+		<activity
+            android:name="mit.edu.stemplusplus.AllProjectDisplayActivity"
+            android:label="@string/title_activity_all_project_display" >
+        </activity>
+        <activity
+            android:name="mit.edu.stemplusplus.SignInActivity"
+            android:label="@string/title_activity_signin"
+            android:parentActivityName="mit.edu.stemplusplus.StemPlusPlus"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mit.edu.stemplusplus.StemPlusPlus" />
+        </activity>
+        <activity
+            android:name="mit.edu.stemplusplus.RegisterActivity"
+            android:label="@string/title_activity_register" >
+        </activity>
+        <activity
+            android:name="mit.edu.stemplusplus.LoginActivity"
+            android:label="@string/title_activity_login" >
+        </activity>
+        <activity
+            android:name="mit.edu.stemplusplus.UserProfileActivity"
+            android:label="@string/title_activity_user_profile" >
         </activity>
     </application>
 
