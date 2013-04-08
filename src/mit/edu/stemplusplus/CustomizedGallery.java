@@ -115,6 +115,19 @@ public class CustomizedGallery extends Activity {
 
 					backToCam.putExtra("gallery", select);
 					startActivity(backToCam);*/
+					
+					
+					
+					// by Shirley: can send images as extras:
+//					Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);     
+//					ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//					bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos); 
+//					byte[] b = baos.toByteArray();
+//
+//					 Intent returnIntent = new Intent();
+//					 returnIntent.putExtra("picture",b);
+//					 setResult(RESULT_OK,returnIntent);     
+//					 finish();
 				}
 
 			}

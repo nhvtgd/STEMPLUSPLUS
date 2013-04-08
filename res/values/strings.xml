@@ -22,5 +22,17 @@
     <string name="cancel">Cancel</string>
     <string name="editNameHint">type new project name</string>
     <string name="title_activity_location_assignment">LocationAssignment</string>
+    <string name ="commit_button">Commit</string>
+    <string name ="preview_button">Preview</string>
+    <string name ="step_button">Add a Step</string>
+    <string name ="media_button">Add Media</string>
+    <string name ="change_button">Edit</string>
+    <string name ="Project_name">Project Name</string>
+    <string name ="picture_prompt">Drag Your Project Picture Here!</string>
+    <string name ="Project_description">Project Description</string>
+    <string name = "title_activity_project">ProjectActivity</string>
+    <string name = "title_activity_store_project">StoreProjectActivity</string>
+    <string name = "title_activity_commit_message">CommitMessage</string>
+    <string name ="Steps">Steps</string>
 
 </resources>

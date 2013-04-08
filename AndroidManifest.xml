@@ -30,8 +30,10 @@
         </activity>
         <activity
             android:name="mit.edu.stemplusplus.CustomizedGallery"
-            android:label="@string/title_activity_menu_screen" >
+            android:label="@string/title_activity_menu_screen"
+            android:theme="@android:style/Theme.Dialog" >
         </activity>
+        
         <activity
             android:name="mit.edu.stemplusplus.ImagePreview"
             android:label="@string/title_activity_menu_screen" >
@@ -43,6 +45,18 @@
         <activity
             android:name="mit.edu.stemplusplus.PreviewDemo"
             android:label="@string/title_activity_preview_demo" >
+        </activity>
+        <activity
+            android:name="mit.edu.stemplusplus.ProjectActivity"
+            android:label="@string/title_activity_project" >
+        </activity>
+          <activity
+            android:name="mit.edu.stemplusplus.StoreNewProject"
+            android:label="@string/title_activity_store_project" >
+        </activity>
+         <activity
+            android:name="mit.edu.stemplusplus.commitMessageActivity"
+            android:label="@string/title_activity_commit_message" >
         </activity>
     </application>
 
