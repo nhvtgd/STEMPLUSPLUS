@@ -122,9 +122,9 @@ public class CustomizedGallery extends StemPlusPlus {
 					}
 
 
-					backToCam.putExtra("gallery", select);
+/*					backToCam.putExtra("gallery", select);
 					startActivity(backToCam);
-					
+					*/
 					
 					
 					// by Shirley: can send images as extras:

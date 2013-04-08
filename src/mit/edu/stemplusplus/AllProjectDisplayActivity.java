@@ -37,6 +37,8 @@ public class AllProjectDisplayActivity extends StemPlusPlus{
 	ArrayList<String> myPicture = new ArrayList<String>();
 
 	ArrayList<Project> projectDisplay = new ArrayList<Project>();
+	
+	/** adapter to handle data for the image*/
 	ImageAdapter adapter;
 
 	GridView imagegrid;
