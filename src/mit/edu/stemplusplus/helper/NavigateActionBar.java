@@ -32,21 +32,20 @@ public class NavigateActionBar extends StemPlusPlus{
                     startActivity(new Intent(context, mit.edu.stemplusplus.LoginActivity.class));
                 }
                 break;
-                // Fill out once screens are done
                 
 //            case mit.edu.stemplusplus.R.id.hot_projects:
 //                startActivity(new Intent(context, mit.edu.stemplusplus.HotProjects.class));
 //                break;
             
-//            case mit.edu.stemplusplus.R.id.post_projects:
-//                if (isLoggedIn) {
-//                    startActivity(new Intent(context, mit.edu.stemplusplus.PostProject.class));
-//                }
-//                else {
-//                    AlertDialogManager.showAlertDialog(context, "Oops!", "You must log in first!", false);
-//                    startActivity(new Intent(context, mit.edu.stemplusplus.LoginActivity.class));
-//                }
-//                break;  
+            case mit.edu.stemplusplus.R.id.post_project:
+                if (isLoggedIn) {
+                    startActivity(new Intent(context, mit.edu.stemplusplus.ProjectActivity.class));
+                }
+                else {
+                    AlertDialogManager.showAlertDialog(context, "Oops!", "You must log in first!", false);
+                    startActivity(new Intent(context, mit.edu.stemplusplus.LoginActivity.class));
+                }
+                break;  
             
             default:
                 return super.onOptionsItemSelected(item);

@@ -21,10 +21,6 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
-
-
-
 /**
  * This class display all of the projects currently active
  * 
@@ -32,13 +28,13 @@ import android.widget.TextView;
  * 
  */
 
-public class AllProjectDisplayActivity extends StemPlusPlus{
+public class AllProjectDisplayActivity extends StemPlusPlus {
 	/** The array to hold all of the captured image */
 	ArrayList<String> myPicture = new ArrayList<String>();
 
 	ArrayList<Project> projectDisplay = new ArrayList<Project>();
-	
-	/** adapter to handle data for the image*/
+
+	/** adapter to handle data for the image */
 	ImageAdapter adapter;
 
 	GridView imagegrid;
@@ -134,7 +130,7 @@ public class AllProjectDisplayActivity extends StemPlusPlus{
 
 			}
 
-			Project project = projects.get(position);
+			final Project project = projects.get(position);
 			Log.d("get project", "ok");
 			holder.projectDescription.setText(project.getDescription());
 			Log.d("set Text", "ok");
@@ -152,7 +148,10 @@ public class AllProjectDisplayActivity extends StemPlusPlus{
 
 				@Override
 				public void onClick(View v) {
-					//Intent i = new Intent(v.getContext(), ProjectScreen.class);
+					Intent i = new Intent(v.getContext(),
+							ProjectDescription.class);
+					i.putExtra(StemPlusPlus.PROJECT_INTENT, project);
+					startActivity(i);
 
 				}
 			});
@@ -181,11 +180,11 @@ public class AllProjectDisplayActivity extends StemPlusPlus{
 		}
 	}
 
-	@Override
+/*	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.layout.activity_all_project_display, menu);
 		return true;
-	}
+	}*/
 
 }

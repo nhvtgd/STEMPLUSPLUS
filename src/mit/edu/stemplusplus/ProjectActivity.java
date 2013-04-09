@@ -92,7 +92,7 @@ public class ProjectActivity extends Activity {
             content.setWidth(LinearLayout.LayoutParams.FILL_PARENT);
             content.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
             content.setInputType(0x00000001);
-            content.setHint("Put down your instructions for this step here.");
+            content.setHint("Enter your instructions for this step here.");
             temp.setDescription(content.getText().toString());
             hiddenLayout.addView(content);
             
@@ -129,13 +129,14 @@ public class ProjectActivity extends Activity {
                    
                 }
             });
+            
             Bundle extras = getIntent().getExtras();
             byte[] b = extras.getByteArray("picture");
             Bitmap bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
             View view = findViewById(android.R.id.content);
             ImageView image = new ImageView(view.getContext());
             image.setScaleType(ScaleType.FIT_CENTER);
-            ((ViewGroup)view).addView(image); 
+            hiddenLayout.addView(image);
             temp.setmedia(bmp);
             steps.add(temp);
             break;
@@ -145,17 +146,24 @@ public class ProjectActivity extends Activity {
             EditText desText = (EditText) findViewById(R.id.project_description);
             name = nameText.getText().toString();
             description = desText.getText().toString();
+            /// better to use service here
             Intent intent = new Intent(this, StoreNewProject.class);
             // when all objects are implementing Parcelable, it would be easy to send them to the next intent
            // intent.putExtra("project", transfer);
             startActivity(intent);
             //there needs to be a way of checking whether the commit is successful or not
+            
+           
             boolean success = true;
+            Intent messageIntent = new Intent(this, commitMessageActivity.class);
+            
             if(success){
-                intent.putExtra("commit Message", "Your project commitment was successful!");
+                messageIntent.putExtra("commit Message", "Your project commitment was successful!");
+               
             } else{
-                intent.putExtra("commit Message", "Your project commitment failed!");
+                messageIntent.putExtra("commit Message", "Your project commitment failed!");
             }
+            startActivity(messageIntent);
             break;
             
         case R.id.preview:

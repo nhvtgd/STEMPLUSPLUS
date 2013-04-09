@@ -5,11 +5,16 @@ package mit.edu.stemplusplus.helper;
  *  @author Ashley Smith
  */
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Project {
+public class Project implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8564171545740507368L;
 	private String name;
 	private Ranking rank;
 	private User user;
@@ -28,6 +33,7 @@ public class Project {
 	public Project(ArrayList<? extends Object> imagePath, String description) {
 		this.images = imagePath;
 		this.description = description;
+		steps = new ArrayList<Step>();
 	}
 
 	public Project(String n, User u, String d, String c) {
