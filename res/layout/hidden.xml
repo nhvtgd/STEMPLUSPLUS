@@ -1,8 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-     android:layout_width="match_parent"
-    android:layout_height="match_parent" 
-    android:id="@+id/hiddenLayout"
-    android:orientation="vertical" >
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="1"
+    android:background="@color/grey" >
+    
+    
+    <EditText
+        android:id="@+id/project_description_hidden"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="0.8"
+        android:gravity="center"
+        android:hint="Step Name" >
+
+    </EditText>
+    <!-- Price -->
+
+    <ImageView
+        android:id="@+id/image_description_hidden"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_weight="0.1"
+        android:src="@drawable/test_image"
+        android:adjustViewBounds="true"
+        android:padding="8dp" >
+    </ImageView>
 
 </LinearLayout>

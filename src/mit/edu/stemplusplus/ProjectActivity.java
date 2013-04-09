@@ -2,6 +2,7 @@ package mit.edu.stemplusplus;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
@@ -21,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -30,132 +32,86 @@ public class ProjectActivity extends Activity {
     private User user;
     private String name;
     private String description;
-    private ArrayList<Step> steps;
+    private List<Step> steps;
     private ArrayList<Comment> comments;
     private ArrayList<History> historyList;
     private LinearLayout stepsLayout;
-    private int stepsCount;
+    private int stepsCount = 0;
+    private ListView stepListView;
+    private CustomizedStepAdapterforPosting stepAdapter;
+    private EditText text;
+    private Button mediaButton;
+    private Step currentStep;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_project);
-        Button addSteps = (Button) findViewById(R.id.add_step);
-        addSteps.setOnClickListener((OnClickListener) this);
+        Log.d("load layout", "Ok");
         
-        Button commitButton = (Button) findViewById(R.id.commit);
-        commitButton.setOnClickListener((OnClickListener) this);
+        text = (EditText)findViewById(R.id.project_descriptions_post_project);
         
+        Button addSteps = (Button) findViewById(R.id.add_step_post_project);
+        addSteps.setOnClickListener(onclick);
+       
+        Button commitButton = (Button) findViewById(R.id.commit_post_project);
+        commitButton.setOnClickListener(onclick);
         
-        Button previewButton = (Button) findViewById(R.id.preview);
-        previewButton.setOnClickListener((OnClickListener) this);
+        Button previewButton = (Button) findViewById(R.id.preview_post_project);
+        previewButton.setOnClickListener(onclick);
         
+        mediaButton = (Button)findViewById(R.id.image_button_post_project);
+        mediaButton.setOnClickListener(onclick);
+        
+        currentStep = new Step();
+        stepListView = (ListView) findViewById(R.id.stepsList_post_project);
+        stepAdapter = new CustomizedStepAdapterforPosting(ProjectActivity.this, steps);
+        stepListView.setAdapter(stepAdapter);
+       
     }
-    
+    private OnClickListener onclick = new OnClickListener(){
    
     @SuppressWarnings("deprecation")
     public void onClick(View v) {
+        
         switch (v.getId()) {  
-        case R.id.add_step:
-            //Check if the Layout already exists
-            LinearLayout hiddenLayout = (LinearLayout)findViewById(R.id.hiddenLayout);
-            if(hiddenLayout == null){
-                //Inflate the Hidden Layout Information View
-                RelativeLayout myLayout = (RelativeLayout)findViewById(R.id.wrapper);
-                View hiddenInfo = getLayoutInflater().inflate(R.layout.hidden, myLayout, false);
-                myLayout.addView(hiddenInfo);
-                stepsCount = 0;
-            }
-            Step temp = new Step();
-            stepsCount ++;
-            TextView stepsPrompt = new TextView(this);
-            stepsPrompt.setText("Step" + stepsCount);
-            stepsPrompt.setTextColor(0xff000000);
-            stepsPrompt.setBackgroundColor(0xff888888);
-            stepsPrompt.setTextSize(14);
-            stepsPrompt.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
-            stepsPrompt.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
-            stepsPrompt.setGravity(0x03);
-            hiddenLayout.addView(stepsPrompt);
+        case R.id.image_button_post_project:
             
-            TextView contentPrompt = new TextView(this);
-            contentPrompt.setText("Instructions:");
-            contentPrompt.setTextColor(0xff000000);
-            contentPrompt.setBackgroundColor(0xff888888);
-            contentPrompt.setTextSize(12);
-            contentPrompt.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
-            contentPrompt.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
-            contentPrompt.setGravity(0x03);
-            hiddenLayout.addView(contentPrompt);
-            
-            EditText content = new EditText(this);
-            content.setWidth(LinearLayout.LayoutParams.FILL_PARENT);
-            content.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
-            content.setInputType(0x00000001);
-            content.setHint("Enter your instructions for this step here.");
-            temp.setDescription(content.getText().toString());
-            hiddenLayout.addView(content);
-            
-            Button mediaButton = new Button(this);
-            mediaButton.setWidth(LinearLayout.LayoutParams.FILL_PARENT);
-            mediaButton.setHeight(30);
-            mediaButton.setGravity(0x50);
-            Drawable bgrnd = Drawable.createFromPath("drawable/custom_button_blue");
-            mediaButton.setBackgroundDrawable(bgrnd);
-            mediaButton.setText("Add Media");
-            mediaButton.setTextColor(0xffffffff);
-            mediaButton.setTextSize(10);
-            hiddenLayout.addView(mediaButton);
-            
-            mediaButton.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-//                    Context mContext = getApplicationContext();
-//                    LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
-//                    View layout = inflater.inflate(R.layout.activity_customized_gallery,
-//                            (ViewGroup) findViewById(R.id.gallery_wrapper));
-//                    final PopupWindow pw = new PopupWindow(layout, 300, 470, true);
-//                    pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
-//                    Intent intent = new Intent(this, CustomizedGallery.class);
-//                    pw.startActivity(intent);
-//                    Button done = (Button) layout.findViewById(R.id.done_button_customized_gallery);
-//                    done.setOnClickListener(new OnClickListener() {
-//                        public void onClick(View v) {
-//                            pw.dismiss();
-//                        }});
-                    
-                    Intent intent = new Intent(ProjectActivity.this, CustomizedGallery.class);
-                    startActivityForResult(intent,1);
-                   
-                }
-            });
-            
-            Bundle extras = getIntent().getExtras();
+            Intent intent = new Intent(ProjectActivity.this, CustomizedGallery.class);
+            startActivityForResult(intent,1);
+            Bundle extras = intent.getExtras();
             byte[] b = extras.getByteArray("picture");
             Bitmap bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
+            if(bmp == null){
+                // find something
+                // bmp = new Bitmap();
+            }
+            currentStep.setmedia(bmp);
             View view = findViewById(android.R.id.content);
             ImageView image = new ImageView(view.getContext());
             image.setScaleType(ScaleType.FIT_CENTER);
-            hiddenLayout.addView(image);
-            temp.setmedia(bmp);
-            steps.add(temp);
+            //TODO: add images to the view
             break;
-        
-        case R.id.commit:
-            EditText nameText = (EditText) findViewById(R.id.project_name);
-            EditText desText = (EditText) findViewById(R.id.project_description);
+          
+
+        case R.id.add_step_post_project:
+            currentStep.setDescription(text.getText().toString());
+            steps.add(currentStep);
+            currentStep = new Step();
+            break;
+        case R.id.commit_post_project:
+            EditText nameText = (EditText) findViewById(R.id.project_name_post_project);
+            EditText desText = (EditText) findViewById(R.id.project_description_post_project);
             name = nameText.getText().toString();
             description = desText.getText().toString();
             /// better to use service here
-            Intent intent = new Intent(this, StoreNewProject.class);
+            Intent store = new Intent(ProjectActivity.this, StoreNewProject.class);
             // when all objects are implementing Parcelable, it would be easy to send them to the next intent
            // intent.putExtra("project", transfer);
-            startActivity(intent);
+            startActivity(store);
             //there needs to be a way of checking whether the commit is successful or not
-            
-           
-            boolean success = true;
-            Intent messageIntent = new Intent(this, commitMessageActivity.class);
+             boolean success = true;
+            Intent messageIntent = new Intent(ProjectActivity.this, commitMessageActivity.class);
             
             if(success){
                 messageIntent.putExtra("commit Message", "Your project commitment was successful!");
@@ -166,7 +122,7 @@ public class ProjectActivity extends Activity {
             startActivity(messageIntent);
             break;
             
-        case R.id.preview:
+        case R.id.preview_post_project:
            setContentView(R.layout.activity_project_preview);
             TextView pname = (TextView)findViewById(R.id.pproject_name);
             pname.setText(name);
@@ -178,7 +134,7 @@ public class ProjectActivity extends Activity {
             
             while(iter.hasNext()){
                 Step temps = iter.next(); 
-                TextView sprompt = new TextView(this);
+                TextView sprompt = new TextView(ProjectActivity.this);
                 sprompt.setTextColor(0xff000000);
                 sprompt.setBackgroundColor(0xff888888);
                 sprompt.setTextSize(14);
@@ -193,13 +149,13 @@ public class ProjectActivity extends Activity {
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT));
                 
-                TextView stepIntruction = new TextView(this);
+                TextView stepIntruction = new TextView(ProjectActivity.this);
                 stepIntruction.setText(temps.getDescription());
                 stepsLayout.addView(stepIntruction,new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.WRAP_CONTENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT));
                 
-                ImageView stepMedia = new ImageView(this);
+                ImageView stepMedia = new ImageView(ProjectActivity.this);
                 stepMedia.setImageBitmap(temps.getMedia());
                 stepsLayout.addView(stepMedia,new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -208,7 +164,7 @@ public class ProjectActivity extends Activity {
             break;     
             }
         }
- 
+    };
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
       super.onActivityResult(requestCode, resultCode, data);
@@ -230,6 +186,8 @@ public class ProjectActivity extends Activity {
         
     }
   
+    
 }
+
 
 
