@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -26,7 +27,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import mit.edu.stemplusplus.helper.*;
 
-public class ProjectActivity extends Activity {
+public class ProjectActivity extends NavigateActionBar {
     private User user;
     private String name;
     private String description;
@@ -228,6 +229,11 @@ public class ProjectActivity extends Activity {
     
     public void changeBack(){
         
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return navigate(item, this, true);
     }
   
 }
