@@ -41,7 +41,7 @@ public class ParseDatabase {
      * @param parseObject A ParseObject
      * @return A Project type
      */
-    public Project getProjectFromParseObject(ParseObject parseObject){
+    public static Project getProjectFromParseObject(ParseObject parseObject){
         String name = parseObject.getString(StemPlusPlus.NAME_PARSE);
         int rank = parseObject.getInt(StemPlusPlus.RANKING_PARSE);
         User user = (User) parseObject.get(StemPlusPlus.USER_PARSE);
@@ -86,12 +86,12 @@ public class ParseDatabase {
     /**
      * Constrain the project found by the ParseQuery based on the user
      * 
-     * @param user A user
+     * @param username the user's username
      * @return A ParseQuery to query in the parse server
      */
-    public ParseQuery getProjectWithUser(User user) {
+    public static ParseQuery getProjectWithUser(String username) {
         ParseQuery query = new ParseQuery(StemPlusPlus.PROJECT_PARSE);
-        query.whereEqualTo(StemPlusPlus.USER_PARSE, user);
+        query.whereEqualTo(StemPlusPlus.USER_PARSE, username);
         return query;
     }
     
@@ -144,12 +144,12 @@ public class ParseDatabase {
     /**
      * Get a list of all the projects associated with a user
      * 
-     * @param user A user
+     * @param String username the user's username
      * @return An ArrayList of Project objects associated with user, or null if nothing is found
      * @throws ParseException
      */
-    public ArrayList<Project> getListOfProjectsOfUser(User user) throws ParseException {
-        ParseQuery query = getProjectWithUser(user);
+    public static ArrayList<Project> getListOfProjectsOfUser(String username) throws ParseException {
+        ParseQuery query = getProjectWithUser(username);
         ArrayList<Project> projects = new ArrayList<Project>();
         int total= 0;
         try {

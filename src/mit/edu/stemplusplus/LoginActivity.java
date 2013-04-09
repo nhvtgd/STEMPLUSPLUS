@@ -1,5 +1,9 @@
 package mit.edu.stemplusplus;
 
+
+import com.parse.Parse;
+import com.parse.ParseUser;
+
 import android.os.Bundle;
 import android.content.Intent;
 import android.view.Menu;
@@ -11,6 +15,13 @@ public class LoginActivity extends StemPlusPlus {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Parse.initialize(this, "iqIztkJYN0f0Y8iPYLjhpVYYFpV9zmnpBAoKTP1s", "4Z2u2qEfF4NtBq8PyIGjfewuhTU1iC7iEdxapoV5");
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if(currentUser!=null){
+            Intent intent = new Intent(this, UserProfileActivity.class);
+            startActivity(intent);
+        }
+        
         findViewById(R.id.register_button).setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -18,7 +29,7 @@ public class LoginActivity extends StemPlusPlus {
                         attemptRegister();
                     }
                 });
-        findViewById(R.id.sign_in_button).setOnClickListener(
+        findViewById(R.id.login_button).setOnClickListener(
                 new View.OnClickListener() {
                     
                     @Override

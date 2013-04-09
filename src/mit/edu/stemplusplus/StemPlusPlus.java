@@ -13,7 +13,6 @@ public class StemPlusPlus extends Activity {
 	public static final String PROJECT_PARSE = "project";
 	public static String USERNAME_PARSE = "username";
 	public static String PASSWORD_PARSE = "password";
-	public static int REPUTATION_POINTS_PARSE = 0;
 	public static final String RANKING_PARSE = "rank";
 	public static final String DESCRIPTION_PARSE = "description";
 	public static final String COMMENT_PARSE = "comment";

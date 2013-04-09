@@ -9,7 +9,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.CAMERA" />
-
+	<uses-permission android:name="android.permission.INTERNET"/>
+	<user-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="17" />
@@ -29,7 +30,6 @@
             android:label="@string/title_activity_menu_screen"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
-        
         <activity
             android:name="mit.edu.stemplusplus.ImagePreview"
             android:label="@string/title_activity_menu_screen" >
@@ -51,27 +51,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-          <activity
+        <activity
             android:name="mit.edu.stemplusplus.StoreNewProject"
             android:label="@string/title_activity_store_project" >
         </activity>
-         <activity
+        <activity
             android:name="mit.edu.stemplusplus.commitMessageActivity"
-            android:label="@string/title_activity_commit_message" 
+			android:label="@string/title_activity_commit_message" 
              android:theme="@android:style/Theme.Dialog">
              </activity>
 		<activity
+
             android:name="mit.edu.stemplusplus.AllProjectDisplayActivity"
             android:label="@string/title_activity_all_project_display" >
         </activity>
         <activity
             android:name="mit.edu.stemplusplus.SignInActivity"
-            android:label="@string/title_activity_signin"
-            android:parentActivityName="mit.edu.stemplusplus.StemPlusPlus"
-            android:windowSoftInputMode="adjustResize|stateVisible" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="mit.edu.stemplusplus.StemPlusPlus" />
+            android:label="@string/title_activity_signin" >
         </activity>
         <activity
             android:name="mit.edu.stemplusplus.RegisterActivity"
@@ -80,6 +76,11 @@
         <activity
             android:name="mit.edu.stemplusplus.LoginActivity"
             android:label="@string/title_activity_login" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="mit.edu.stemplusplus.UserProfileActivity"
