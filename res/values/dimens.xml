@@ -9,5 +9,7 @@
     
     <dimen name="main_button_text_size">25sp</dimen>
     <dimen name="small_button_text_size">10sp</dimen>
+    <dimen name="version_size">5pt</dimen>
+    <dimen name="version_spacing">3pt</dimen>
     
 </resources>

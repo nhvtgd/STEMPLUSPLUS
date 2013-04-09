@@ -1,16 +1,15 @@
 package mit.edu.stemplusplus.helper;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import mit.edu.stemplusplus.StemPlusPlus;
-import android.content.Context;
 
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+
+import mit.edu.stemplusplus.StemPlusPlus;
+import android.content.Context;
 
 public class ParseDatabase {
     public void initProject(Context context) {
