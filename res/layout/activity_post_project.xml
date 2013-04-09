@@ -75,19 +75,22 @@
         android:textSize="12sp" >
     </TextView>
       
-     <ImageView
-            android:id="@+id/profile_image_post_project"
-             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:maxHeight="60dp"
-            android:maxWidth="60dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/content_picture"
-            android:background="@drawable/custom_button_blue"
-            android:layout_marginRight="1dp"
-            android:layout_below="@id/project_picture_prompt_post_project">        
-    </ImageView>
+      <Button
+        android:id = "@+id/profile_image_post_project"
+         android:layout_width="wrap_content"
+       	android:layout_height="wrap_content"
+        android:layout_below="@id/project_picture_prompt_post_project"
+        android:layout_marginBottom="@dimen/button_marginB"
+        android:layout_marginLeft="@dimen/button_marginL"
+        android:layout_marginRight="@dimen/button_marginR"
+        android:layout_marginTop="@dimen/button_marginT"
+        android:background="@drawable/custom_button_blue"
+        android:text="Profile Picture"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/white"
+        android:textSize="@dimen/small_button_text_size"
+       />
+   
     
     <TextView
         android:id="@+id/project_description_prompt_post_project"

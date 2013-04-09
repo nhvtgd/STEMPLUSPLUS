@@ -16,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
@@ -46,9 +47,12 @@ public class ProjectActivity extends Activity {
         steps = new ArrayList<Step>();
         text = (EditText)findViewById(R.id.project_descriptions_post_project);
         Log.d("load text","txt ok");
+
+        Button profile = (Button) findViewById(R.id.profile_image_post_project);
+        profile.setOnClickListener(onclick);
+       
         
         Button addSteps = (Button) findViewById(R.id.add_step_post_project);
-
         addSteps.setOnClickListener(onclick);
        
         Button commitButton = (Button) findViewById(R.id.commit_post_project);
@@ -72,23 +76,37 @@ public class ProjectActivity extends Activity {
     public void onClick(View v) {
         
         switch (v.getId()) {  
+        case R.id.profile_image_post_project:
+            Intent intentprofile = new Intent(v.getContext(), CustomizedGallery.class);
+            startActivityForResult(intentprofile,1);
+            ArrayList<String> imagePathProfile = intentprofile
+                    .getStringArrayListExtra("gallery");
+            View view = findViewById(android.R.id.content);
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            // Find dimension of the picture
+            options.inJustDecodeBounds = true;
+            Bitmap bmp = BitmapFactory.decodeFile(imagePathProfile.get(0), options);
+            ImageView image = new ImageView(view.getContext());
+            image.setImageBitmap(bmp);
+            image.setScaleType(ScaleType.FIT_CENTER);
+            break;
+            
         case R.id.image_button_post_project:
             Intent intent = new Intent(v.getContext(), CustomizedGallery.class);
-            Log.d("debug","start customized");
             startActivityForResult(intent,1);
-            Bundle extras = intent.getExtras();
-            byte[] b = extras.getByteArray("picture");
-            Bitmap bmp = BitmapFactory.decodeByteArray(b, 0, b.length);
-            if(bmp == null){
-                // find something
-                // bmp = new Bitmap();
-                bmp = (Bitmap) currentStep.getMedia();
-            }
-            currentStep.setmedia(bmp);
-            View view = findViewById(android.R.id.content);
-            ImageView image = new ImageView(view.getContext());
-            image.setScaleType(ScaleType.FIT_CENTER);
-            //TODO: add images to the view
+           // startActivityForResult(intent,1);
+            Log.d("debug","start customized");
+            ArrayList<String> imagePathStep = intent
+                    .getStringArrayListExtra("gallery");
+//            currentStep.setmedia(bmp);
+            View viewStep = findViewById(android.R.id.content);
+            BitmapFactory.Options optionsStep = new BitmapFactory.Options();
+            // Find dimension of the picture
+            optionsStep.inJustDecodeBounds = true;
+            Bitmap bmpStep = BitmapFactory.decodeFile(imagePathStep.get(0), optionsStep);
+            ImageView imageStep = new ImageView(viewStep.getContext());
+            imageStep.setImageBitmap(bmpStep);
+            imageStep.setScaleType(ScaleType.FIT_CENTER);
             break;
           
 

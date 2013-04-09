@@ -24,17 +24,19 @@
         <activity
             android:name="mit.edu.stemplusplus.CustomCameraActivity"
             android:label="@string/app_name" >
+            
         </activity>
         
         
          <activity
             android:name="mit.edu.stemplusplus.ProjectActivity"
-            android:label="@string/title_activity_project" >
-             <intent-filter>
+            android:label="@string/title_activity_project">
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter> 
+            </intent-filter>  
+             
         </activity>
         
         <activity
@@ -70,6 +72,8 @@
 
             android:name="mit.edu.stemplusplus.AllProjectDisplayActivity"
             android:label="@string/title_activity_all_project_display" >
+            
+            
         </activity>
         <activity
             android:name="mit.edu.stemplusplus.SignInActivity"
