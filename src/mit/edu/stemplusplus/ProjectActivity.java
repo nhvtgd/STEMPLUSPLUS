@@ -1,43 +1,34 @@
 package mit.edu.stemplusplus;
 
 import java.util.ArrayList;
+
 import java.util.Iterator;
 import java.util.List;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import mit.edu.stemplusplus.helper.*;
 
-public class ProjectActivity extends NavigateActionBar {
+public class ProjectActivity extends Activity {
     private User user;
     private String name;
     private String description;
     private List<Step> steps;
     private ArrayList<Comment> comments;
     private ArrayList<History> historyList;
-    private LinearLayout stepsLayout;
-    private int stepsCount = 0;
     private ListView stepListView;
     private CustomizedStepAdapterforPosting stepAdapter;
     private EditText text;
@@ -49,10 +40,14 @@ public class ProjectActivity extends NavigateActionBar {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_project);
         Log.d("load layout", "Ok");
-        
+
+        currentStep = new Step();
+        steps = new ArrayList<Step>();
         text = (EditText)findViewById(R.id.project_descriptions_post_project);
+        Log.d("load text","txt ok");
         
         Button addSteps = (Button) findViewById(R.id.add_step_post_project);
+
         addSteps.setOnClickListener(onclick);
        
         Button commitButton = (Button) findViewById(R.id.commit_post_project);
@@ -64,7 +59,6 @@ public class ProjectActivity extends NavigateActionBar {
         mediaButton = (Button)findViewById(R.id.image_button_post_project);
         mediaButton.setOnClickListener(onclick);
         
-        currentStep = new Step();
         stepListView = (ListView) findViewById(R.id.stepsList_post_project);
         stepAdapter = new CustomizedStepAdapterforPosting(ProjectActivity.this, steps);
         stepListView.setAdapter(stepAdapter);
@@ -77,7 +71,6 @@ public class ProjectActivity extends NavigateActionBar {
         
         switch (v.getId()) {  
         case R.id.image_button_post_project:
-            
             Intent intent = new Intent(ProjectActivity.this, CustomizedGallery.class);
             startActivityForResult(intent,1);
             Bundle extras = intent.getExtras();
@@ -187,11 +180,7 @@ public class ProjectActivity extends NavigateActionBar {
         
     }
     
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return navigate(item, this, true);
-    }
-  
+      
     
 }
 
