@@ -50,6 +50,10 @@
             android:name="mit.edu.stemplusplus.ProjectActivity"
             android:label="@string/title_activity_project" >
         </activity>
+        <activity
+            android:name="mit.edu.stemplusplus.ProjectDescription"
+            android:label="@string/title_activity_project_description" >
+        </activity>
           <activity
             android:name="mit.edu.stemplusplus.StoreNewProject"
             android:label="@string/title_activity_store_project" >
