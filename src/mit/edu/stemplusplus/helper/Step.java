@@ -5,16 +5,22 @@ package mit.edu.stemplusplus.helper;
  *  @author Ashley Smith
  */
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.Bitmap;
 
-public class Step {
-    private List<Comment> comments;
+public class Step implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -9222780575813376631L;
+	private List<Comment> comments;
     private String description;
     private Bitmap media;
     private List<Step> pastVersions;
+    private String mediaPath;
     
     public Step(String d) {
         description = d;
@@ -51,4 +57,11 @@ public class Step {
     public List<Comment> getComments() { return comments; }
     public List<Step> getPastVersions() { return pastVersions; }
     public String getDescription() { return description; }
+	
+    public String getMediaPath() {
+		return mediaPath;
+	}
+	public void setMediaPath(String mediaPath) {
+		this.mediaPath = mediaPath;
+	}
 }

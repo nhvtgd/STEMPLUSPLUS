@@ -3,6 +3,7 @@ package mit.edu.stemplusplus;
 import java.util.ArrayList;
 
 import mit.edu.stemplusplus.helper.Project;
+import mit.edu.stemplusplus.helper.Step;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -21,6 +22,7 @@ public class StemPlusPlus extends Activity {
 	public static final String STEP_PARSE = "step";
 	public static String IMAGE_INTENT = "image";
 	public static String GALLERY_INTENT = "gallery";
+	public static String PROJECT_INTENT = "Project";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +40,12 @@ public class StemPlusPlus extends Activity {
 	public Project makeTestProject(ArrayList<String> imagePath,
 			String desciption) {
 		Project testProject = new Project(imagePath, desciption);
-
+		for (String i: imagePath){
+			Step step1 = new Step("Making something up" + i);
+			step1.setMediaPath(i);
+			testProject.addStep(step1);
+		}
+		
 		return testProject;
 
 	}
