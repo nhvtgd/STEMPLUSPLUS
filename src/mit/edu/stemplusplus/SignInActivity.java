@@ -1,5 +1,10 @@
 package mit.edu.stemplusplus;
 
+import com.parse.LogInCallback;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -18,13 +23,6 @@ import android.widget.TextView;
  * Activity which displays a login screen to the user.
  */
 public class SignInActivity extends StemPlusPlus {
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[] {
-        "foo@example.com:hello", "bar@example.com:world" };
-
     /**
      * The default email to populate the email field with.
      */
@@ -49,7 +47,7 @@ public class SignInActivity extends StemPlusPlus {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Parse.initialize(this, "iqIztkJYN0f0Y8iPYLjhpVYYFpV9zmnpBAoKTP1s", "4Z2u2qEfF4NtBq8PyIGjfewuhTU1iC7iEdxapoV5");
         setContentView(R.layout.activity_signin);
         setupActionBar();
 
@@ -213,44 +211,24 @@ public class SignInActivity extends StemPlusPlus {
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    if(pieces[1].equals(mPassword)){
-                        StemPlusPlus.USERNAME_PARSE = mEmail;
-                        StemPlusPlus.PASSWORD_PARSE = mPassword;
+            ParseUser.logInInBackground(mEmail, mPassword, new LogInCallback(){
+                @Override
+                public void done(ParseUser user, ParseException e) {
+                    mAuthTask = null;
+                    showProgress(false);
+                    if (user!=null) {
+                        finish();
+                        Intent intent = new Intent(SignInActivity.this, UserProfileActivity.class);
+                        intent.putExtra("username", mEmail);
+                        startActivity(intent);
+                    } else {
+                        mPasswordView
+                        .setError(getString(R.string.error_incorrect_password));
+                        mPasswordView.requestFocus();
                     }
-                    return pieces[1].equals(mPassword);
                 }
-            }
-
-            return false;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
-
-            if (success) {
-                finish();
-                Intent intent = new Intent(SignInActivity.this, UserProfileActivity.class);
-                startActivity(intent);
-            } else {
-                mPasswordView
-                .setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
-            }
+            });
+            return true;
         }
 
         @Override

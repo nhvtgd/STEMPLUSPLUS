@@ -1,5 +1,10 @@
 package mit.edu.stemplusplus;
 
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SignUpCallback;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -41,11 +46,11 @@ public class RegisterActivity extends  StemPlusPlus{
     private View mLoginFormView;
     private View mLoginStatusView;
     private TextView mLoginStatusMessageView;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Parse.initialize(this, "iqIztkJYN0f0Y8iPYLjhpVYYFpV9zmnpBAoKTP1s", "4Z2u2qEfF4NtBq8PyIGjfewuhTU1iC7iEdxapoV5");
         setContentView(R.layout.activity_register);
 
         // Set up the registration form.
@@ -159,8 +164,6 @@ public class RegisterActivity extends  StemPlusPlus{
             showProgress(true);
             mAuthTask = new UserRegisterTask();
             mAuthTask.execute((Void) null);
-            Intent intent = new Intent(this, UserProfileActivity.class);
-            startActivity(intent);
         }
     }
 
@@ -204,7 +207,6 @@ public class RegisterActivity extends  StemPlusPlus{
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
-
     /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
@@ -212,34 +214,30 @@ public class RegisterActivity extends  StemPlusPlus{
     public class UserRegisterTask extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt registration against a network service.
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            StemPlusPlus.USERNAME_PARSE = mEmail;
-            StemPlusPlus.PASSWORD_PARSE = mPassword;
+            ParseUser user = new ParseUser();
+            user.setUsername(mEmail);
+            user.setPassword(mPassword);
+            user.setEmail(mEmail);
+            user.put("reputation_points", 0);
+            user.signUpInBackground(new SignUpCallback(){
+                public void done(ParseException e){
+                    mAuthTask = null;
+                    showProgress(false);
+                    if (e==null) {
+                        finish();
+                        Intent intent = new Intent(RegisterActivity.this, UserProfileActivity.class);
+                        intent.putExtra("username", mEmail);
+                        startActivity(intent);
+                    } else {
+                        mPasswordView
+                                .setError(getString(R.string.error_incorrect_password));
+                        mPasswordView.requestFocus();
+                    }
+                }
+            });
             return true;
         }
 
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
-            if (success) {
-                finish();
-                Intent intent = new Intent(RegisterActivity.this, UserProfileActivity.class);
-                startActivity(intent);
-            } else {
-                mPasswordView
-                        .setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
-            }
-        }
 
         @Override
         protected void onCancelled() {
