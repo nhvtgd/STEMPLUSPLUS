@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -62,6 +63,7 @@ public class ProjectActivity extends Activity {
         stepListView = (ListView) findViewById(R.id.stepsList_post_project);
         stepAdapter = new CustomizedStepAdapterforPosting(ProjectActivity.this, steps);
         stepListView.setAdapter(stepAdapter);
+        
        
     }
     private OnClickListener onclick = new OnClickListener(){
@@ -71,7 +73,8 @@ public class ProjectActivity extends Activity {
         
         switch (v.getId()) {  
         case R.id.image_button_post_project:
-            Intent intent = new Intent(ProjectActivity.this, CustomizedGallery.class);
+            Intent intent = new Intent(v.getContext(), CustomizedGallery.class);
+            Log.d("debug","start customized");
             startActivityForResult(intent,1);
             Bundle extras = intent.getExtras();
             byte[] b = extras.getByteArray("picture");
@@ -79,6 +82,7 @@ public class ProjectActivity extends Activity {
             if(bmp == null){
                 // find something
                 // bmp = new Bitmap();
+                bmp = (Bitmap) currentStep.getMedia();
             }
             currentStep.setmedia(bmp);
             View view = findViewById(android.R.id.content);
@@ -91,8 +95,11 @@ public class ProjectActivity extends Activity {
         case R.id.add_step_post_project:
             currentStep.setDescription(text.getText().toString());
             steps.add(currentStep);
+            stepAdapter.notifyDataSetChanged();
             currentStep = new Step();
+            
             break;
+            
         case R.id.commit_post_project:
             EditText nameText = (EditText) findViewById(R.id.project_name_post_project);
             EditText desText = (EditText) findViewById(R.id.project_description_post_project);

@@ -1,5 +1,6 @@
 package mit.edu.stemplusplus;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 
@@ -8,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -128,17 +130,17 @@ public class CustomizedGallery extends StemPlusPlus {
 					
 					
 					// by Shirley: can send images as extras:
-//					Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);     
-//					ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//					bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos); 
-//					byte[] b = baos.toByteArray();
-//
-//					 Intent returnIntent = new Intent();
-//					 returnIntent.putExtra("picture",b);
-//					 setResult(RESULT_OK,returnIntent);     
-//					 finish();
-					backToCam.putStringArrayListExtra(GALLERY_INTENT, imageFromCam);
-					startActivity(backToCam);
+					Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);     
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();
+					bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos); 
+					byte[] b = baos.toByteArray();
+
+					 Intent returnIntent = new Intent();
+					 returnIntent.putExtra("picture",b);
+					 setResult(RESULT_OK,returnIntent);     
+					 finish();
+//					backToCam.putStringArrayListExtra(GALLERY_INTENT, imageFromCam);
+//					startActivity(backToCam);
 				}
 
 			}
