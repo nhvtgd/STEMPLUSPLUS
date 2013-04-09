@@ -78,9 +78,8 @@ public class ProjectActivity extends Activity {
         switch (v.getId()) {  
         case R.id.profile_image_post_project:
             Intent intentprofile = new Intent(v.getContext(), CustomizedGallery.class);
-            startActivityForResult(intentprofile,1);
-            ArrayList<String> imagePathProfile = intentprofile
-                    .getStringArrayListExtra("gallery");
+            startActivity(intentprofile);
+            ArrayList<String> imagePathProfile = intentprofile.getStringArrayListExtra("gallery");
             View view = findViewById(android.R.id.content);
             BitmapFactory.Options options = new BitmapFactory.Options();
             // Find dimension of the picture
@@ -93,11 +92,10 @@ public class ProjectActivity extends Activity {
             
         case R.id.image_button_post_project:
             Intent intent = new Intent(v.getContext(), CustomizedGallery.class);
-            startActivityForResult(intent,1);
-           // startActivityForResult(intent,1);
+            startActivity(intent);
+            // startActivityForResult(intent,1);
             Log.d("debug","start customized");
-            ArrayList<String> imagePathStep = intent
-                    .getStringArrayListExtra("gallery");
+            ArrayList<String> imagePathStep = intent.getStringArrayListExtra("gallery");
 //            currentStep.setmedia(bmp);
             View viewStep = findViewById(android.R.id.content);
             BitmapFactory.Options optionsStep = new BitmapFactory.Options();
