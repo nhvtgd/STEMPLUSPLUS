@@ -6,14 +6,14 @@
         android:orientation="vertical" >
  
   <LinearLayout 
-        android:id="@+id/linearOuter"
+        android:id="@+id/linearOuter_edit_project"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:gravity="bottom"
         android:orientation="horizontal" >
    <Button
-        android:id="@+id/commit"
+        android:id="@+id/commit_edit_project"
         android:layout_width="140dp"
         android:layout_height="30dp"
         android:layout_marginBottom="@dimen/button_marginB"
@@ -29,7 +29,7 @@
         android:onClick="commitProject"  />
 
     <Button
-        android:id="@+id/preview"
+        android:id="@+id/preview_edit_project"
         android:layout_width="fill_parent"
         android:layout_height="30dp"
         android:layout_gravity="bottom"
@@ -43,7 +43,6 @@
         android:textColor="@color/white"
         android:textSize="@dimen/small_button_text_size"
         android:onClick="previewProject"  />
-     
   </LinearLayout>
  
 
@@ -52,23 +51,24 @@
     android:layout_height="wrap_content"
     android:orientation="vertical" >
     <EditText
-        android:id="@+id/project_name"
+        android:id="@+id/project_name_edit_project"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="text" 
         android:hint="@string/Project_name" />
+    
 		<ImageView
-            android:id="@+id/profile_image"
+            android:id="@+id/profile_image_edit_project"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/project_name" />
+            android:layout_toRightOf="@id/project_name_edit_project" />
     
     <TextView
-        android:id="@+id/projectDescription"
+        android:id="@+id/project_descriptions_edit_project"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/project_name"
+        android:layout_below="@id/project_name_edit_project"
         android:layout_marginBottom="2dp"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="2dp"
@@ -81,35 +81,36 @@
         android:textSize="12sp" />
 
     <EditText
-        android:id="@+id/project_description"
+        android:id="@+id/project_description_edittext_edit_project"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/projectDescription"
+        android:layout_below="@id/project_descriptions_edit_project"
         android:inputType="text" 
         android:hint="@string/Project_description"/>
 
     <TextView
-        android:id="@+id/stepN"
+        android:id="@+id/stepN_edit_text"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="2dp"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="2dp"
         android:layout_marginTop="4dp"
-        android:layout_below="@id/project_description"
+        android:layout_below="@id/project_description_edittext_edit_project"
         android:background="@color/grey"
         android:gravity="left"
         android:text="@string/Steps"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/black"
         android:textSize="15sp" />
+    
 	<ListView
-        android:id="@+id/stepsList"
+        android:id="@+id/stepsList_edit_project"
          android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@id/stepN"
-        android:layout_alignTop="@id/linearOuter"
+        android:layout_below="@id/stepN_edit_text"
+        android:layout_alignTop="@id/linearOuter_edit_project"
         android:columnWidth="90dp"
         android:gravity="left"
         android:horizontalSpacing="10dp"
@@ -118,7 +119,7 @@
         android:verticalSpacing="10dp" />
 
     <Button
-        android:id="@+id/add_step"
+        android:id="@+id/add_step_edit_project"
         android:layout_width="fill_parent"
         android:layout_height="30dp"
         android:layout_marginBottom="@dimen/button_marginB"
@@ -127,7 +128,7 @@
         android:layout_marginTop="@dimen/button_marginT"
         android:background="@drawable/custom_button_blue"
         android:text="@string/step_button"
-        android:layout_below="@id/stepsList"
+        android:layout_below="@id/stepsList_edit_project"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/white"
         android:textSize="@dimen/small_button_text_size" 

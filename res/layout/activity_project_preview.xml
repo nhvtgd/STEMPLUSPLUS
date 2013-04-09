@@ -104,6 +104,7 @@
         android:textSize="12sp"
         android:gravity="left"  />
     
+     
     <ListView
         android:id="@+id/pstepsList"
          android:layout_width="fill_parent"

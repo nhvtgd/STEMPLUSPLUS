@@ -10,8 +10,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="28dp"
         android:text="@string/user_profile_activity_username_label" />
+
     <TextView
         android:id="@+id/user_profile_activity_username_user"
         android:layout_width="wrap_content"
@@ -19,46 +21,40 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="28dp"
+        android:layout_toRightOf="@+id/user_profile_activity_username_label"
         android:text="@string/empty_string" />
-    
+
     <TextView
         android:id="@+id/user_profile_activity_reputation_points_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/user_profile_activity_username_label"
         android:layout_centerHorizontal="true"
+        android:layout_marginRight="10dp"
         android:text="@string/user_profile_activity_reputation_points_label" />
 
-        <TextView
+    <TextView
         android:id="@+id/user_profile_activity_reputation_points"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/user_profile_activity_username_user"
         android:layout_centerHorizontal="true"
+        android:layout_toRightOf="@+id/user_profile_activity_reputation_points_label"
         android:text="@string/empty_string" />
-        
+
     <TextView
         android:id="@+id/user_profile_activity_past_projects_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/user_profile_activity_reputation_points_label"
-        android:layout_marginTop="28dp"
         android:layout_marginLeft="28dp"
-	    android:text="@string/user_profile_activity_past_projects_label" />
-
-    <ImageView
-        android:id="@+id/user_profile_activity_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/user_profile_activity_past_projects_label"
-        android:layout_alignTop="@+id/user_profile_activity_username_label"
-        android:contentDescription="@+id/user_profile_activity_user_image"
-        android:src="@android:drawable/ic_menu_myplaces" />
+        android:layout_marginTop="28dp"
+        android:text="@string/user_profile_activity_past_projects_label" />
 
     <ListView
         android:id="@+id/user_profile_past_projects_list_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
+        android:layout_height="wrap_content"
         android:layout_below="@+id/user_profile_activity_past_projects_label"
         android:layout_marginLeft="28dp" />
 
