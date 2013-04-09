@@ -28,7 +28,6 @@ public class UserProfileActivity extends NavigateActionBar {
         super.onCreate(savedInstanceState);
         Parse.initialize(this, "iqIztkJYN0f0Y8iPYLjhpVYYFpV9zmnpBAoKTP1s", "4Z2u2qEfF4NtBq8PyIGjfewuhTU1iC7iEdxapoV5");
         setContentView(R.layout.activity_user_profile);
-        Project[] projects = {new Project("name",null,null,null),new Project("name2",null,null,null),new Project("name3",null,null,null)};
         Intent intent = getIntent();
         username = intent.getStringExtra("username");
         if(username==null)
@@ -39,7 +38,7 @@ public class UserProfileActivity extends NavigateActionBar {
         user.setText(username);
         
         final ListView lv = (ListView) findViewById(R.id.user_profile_past_projects_list_view);
-        //Project[] projects = getProject();
+        Project[] projects = getProject();
         lv.setAdapter(new ArrayAdapter<Project>(this,android.R.layout.simple_list_item_1,projects));
         lv.setOnItemClickListener(new OnItemClickListener(){
             @Override
