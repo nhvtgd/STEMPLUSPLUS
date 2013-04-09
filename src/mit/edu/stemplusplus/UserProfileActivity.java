@@ -23,12 +23,12 @@ import android.widget.ListView;
 
 public class UserProfileActivity extends NavigateActionBar {
     String username;
-    Project[] projects;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Parse.initialize(this, "iqIztkJYN0f0Y8iPYLjhpVYYFpV9zmnpBAoKTP1s", "4Z2u2qEfF4NtBq8PyIGjfewuhTU1iC7iEdxapoV5");
         setContentView(R.layout.activity_user_profile);
+        Project[] projects = {new Project("name",null,null,null),new Project("name2",null,null,null),new Project("name3",null,null,null)};
         Intent intent = getIntent();
         username = intent.getStringExtra("username");
         if(username==null)
@@ -39,15 +39,16 @@ public class UserProfileActivity extends NavigateActionBar {
         user.setText(username);
         
         final ListView lv = (ListView) findViewById(R.id.user_profile_past_projects_list_view);
-        String[] projects = getProject();
-        lv.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,projects));
+        //Project[] projects = getProject();
+        lv.setAdapter(new ArrayAdapter<Project>(this,android.R.layout.simple_list_item_1,projects));
         lv.setOnItemClickListener(new OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-                String project = (String) lv.getItemAtPosition(position);
-                //Intent intent = new Intent(UserProfileActivity.this, UserProfileActivity.class); //needs changed
-                //intent.putExtra("project",project);
-                //startActivity(intent);
+                Project project = (Project) lv.getItemAtPosition(position);
+                Log.d("projects",project.getName());
+                Intent intent = new Intent(UserProfileActivity.this, ProjectDescription.class);
+                intent.putExtra(StemPlusPlus.PROJECT_INTENT,project);
+                startActivity(intent);
             }
         });
         reputation_points.setText(projects.length+"");
@@ -73,15 +74,8 @@ public class UserProfileActivity extends NavigateActionBar {
             return new ArrayList<Project>();
         }
     }
-    private String[] getProject(){
-        ArrayList<Project> p = getProjectByUser();
-        String[] strings = new String[p.size()];
-        projects = new Project[p.size()];
-        for(int i=0; i<p.size(); i++){
-            strings[i] = p.get(i).getName();
-            projects[i] = p.get(i);
-        }
-        return strings;
+    private Project[] getProject(){
+        return (Project[]) getProjectByUser().toArray();
     }
 
 }
