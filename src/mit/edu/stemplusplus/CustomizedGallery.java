@@ -135,6 +135,9 @@ public class CustomizedGallery extends StemPlusPlus {
 //					 setResult(RESULT_OK,returnIntent);     
 //					 finish();
 					
+					Intent returnIntent = getIntent();
+					returnIntent.putStringArrayListExtra(GALLERY_INTENT, imageFromCam);
+					startActivity(returnIntent);
 //					backToCam.putStringArrayListExtra(GALLERY_INTENT, imageFromCam);
 //					startActivity(backToCam);
 				}
