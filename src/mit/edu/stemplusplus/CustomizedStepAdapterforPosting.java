@@ -21,7 +21,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class CustomizedStepAdapterforPosting extends BaseAdapter {
+public class CustomizedStepAdapterforPosting extends BaseAdapter{
     private Activity activity;
     /** The collections of sellable objects */
     private List<Step> data;
@@ -61,7 +61,7 @@ public class CustomizedStepAdapterforPosting extends BaseAdapter {
             holder = new ViewHolder();
             convertView = inflater.inflate(R.layout.hidden, null);
             Log.d("get TextView", "ok");
-            holder.stepImage = (Button) convertView
+            holder.stepImage = (ImageView) convertView
                     .findViewById(R.id.image_button_hidden);
             holder.stepDescription = (EditText) convertView
                     .findViewById(R.id.project_description_hidden);
@@ -71,15 +71,11 @@ public class CustomizedStepAdapterforPosting extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
 
         }
-
         Step step = data.get(position);
         Log.d("get project", "ok");
-        holder.stepDescription.setText("step " + position+" description");
-        Log.d("set Text", "ok");
-       
-        Log.d("set Image", "ok");
+        holder.stepDescription.setText("step " + (position + 2) +" description");
+        Log.d("set Text", "ok");Log.d("set Image", "ok");
         holder.stepImage.setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
@@ -91,7 +87,7 @@ public class CustomizedStepAdapterforPosting extends BaseAdapter {
     }
     public class ViewHolder {
         private EditText stepDescription;
-        private Button stepImage;
+        private ImageView stepImage;
         private int id;
 
         public void setId(int id) {

@@ -41,7 +41,6 @@ public class StemPlusPlus extends Activity {
 		Project testProject = new Project(imagePath, desciption);
 		for (String i: imagePath){
 			Step step1 = new Step("Making something up" + i);
-			step1.setMediaPath(i);
 			testProject.addStep(step1);
 		}
 		

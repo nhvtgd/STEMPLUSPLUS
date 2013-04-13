@@ -24,9 +24,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import mit.edu.stemplusplus.helper.*;
 
-public class ProjectActivity extends Activity {
-    private User user;
+public class ProjectActivity extends StemPlusPlus {
+    private Project currentProject;
+   private View clicked;
     private String name;
+    private Bitmap profilePic;
     private String description;
     private List<Step> steps;
     private ArrayList<Comment> comments;
@@ -34,8 +36,11 @@ public class ProjectActivity extends Activity {
     private ListView stepListView;
     private CustomizedStepAdapterforPosting stepAdapter;
     private EditText text;
-    private Button mediaButton;
     private Step currentStep;
+    private EditText nameText;
+    private EditText desText;
+    private EditText step1Text;
+    private ImageView step1Image;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +49,16 @@ public class ProjectActivity extends Activity {
         Log.d("load layout", "Ok");
 
         currentStep = new Step();
+        currentProject = new Project();
         steps = new ArrayList<Step>();
         text = (EditText)findViewById(R.id.project_descriptions_post_project);
+        nameText = (EditText) findViewById(R.id.project_name_post_project);
+        desText = (EditText) findViewById(R.id.project_description_post_project);
+        step1Text = (EditText) findViewById(R.id.project_descriptions_post_project);
+        step1Image = (ImageView)findViewById(R.id.image_button_post_project);
         Log.d("load text","txt ok");
 
-        Button profile = (Button) findViewById(R.id.profile_image_post_project);
+        ImageView profile = (ImageView) findViewById(R.id.profile_image_post_project);
         profile.setOnClickListener(onclick);
        
         
@@ -61,7 +71,7 @@ public class ProjectActivity extends Activity {
         Button previewButton = (Button) findViewById(R.id.preview_post_project);
         previewButton.setOnClickListener(onclick);
         
-        mediaButton = (Button)findViewById(R.id.image_button_post_project);
+        ImageView mediaButton = (ImageView)findViewById(R.id.image_button_post_project);
         mediaButton.setOnClickListener(onclick);
         
         stepListView = (ListView) findViewById(R.id.stepsList_post_project);
@@ -78,33 +88,14 @@ public class ProjectActivity extends Activity {
         switch (v.getId()) {  
         case R.id.profile_image_post_project:
             Intent intentprofile = new Intent(v.getContext(), CustomizedGallery.class);
-            startActivity(intentprofile);
-            ArrayList<String> imagePathProfile = intentprofile.getStringArrayListExtra("gallery");
-            View view = findViewById(android.R.id.content);
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            // Find dimension of the picture
-            options.inJustDecodeBounds = true;
-            Bitmap bmp = BitmapFactory.decodeFile(imagePathProfile.get(0), options);
-            ImageView image = new ImageView(view.getContext());
-            image.setImageBitmap(bmp);
-            image.setScaleType(ScaleType.FIT_CENTER);
+            startActivityForResult(intentprofile, 1000);
+            clicked = v;
             break;
             
         case R.id.image_button_post_project:
             Intent intent = new Intent(v.getContext(), CustomizedGallery.class);
-            startActivity(intent);
-            // startActivityForResult(intent,1);
-            Log.d("debug","start customized");
-            ArrayList<String> imagePathStep = intent.getStringArrayListExtra("gallery");
-//            currentStep.setmedia(bmp);
-            View viewStep = findViewById(android.R.id.content);
-            BitmapFactory.Options optionsStep = new BitmapFactory.Options();
-            // Find dimension of the picture
-            optionsStep.inJustDecodeBounds = true;
-            Bitmap bmpStep = BitmapFactory.decodeFile(imagePathStep.get(0), optionsStep);
-            ImageView imageStep = new ImageView(viewStep.getContext());
-            imageStep.setImageBitmap(bmpStep);
-            imageStep.setScaleType(ScaleType.FIT_CENTER);
+            startActivityForResult(intent, 1000);
+            clicked = v;
             break;
           
 
@@ -113,14 +104,17 @@ public class ProjectActivity extends Activity {
             steps.add(currentStep);
             stepAdapter.notifyDataSetChanged();
             currentStep = new Step();
-            
+            clicked = v;
             break;
             
         case R.id.commit_post_project:
-            EditText nameText = (EditText) findViewById(R.id.project_name_post_project);
-            EditText desText = (EditText) findViewById(R.id.project_description_post_project);
             name = nameText.getText().toString();
+            currentProject.setName(name);
+            
             description = desText.getText().toString();
+            currentProject.setDescription(description);
+            currentProject.setSteps(steps);
+            //TODO
             /// better to use service here
             Intent store = new Intent(ProjectActivity.this, StoreNewProject.class);
             // when all objects are implementing Parcelable, it would be easy to send them to the next intent
@@ -140,63 +134,66 @@ public class ProjectActivity extends Activity {
             break;
             
         case R.id.preview_post_project:
-           setContentView(R.layout.activity_project_preview);
+            name = nameText.getText().toString();
+            description = desText.getText().toString();
+            setContentView(R.layout.activity_project_preview);
             TextView pname = (TextView)findViewById(R.id.pproject_name);
             pname.setText(name);
+            ImageView pimage = (ImageView)findViewById(R.id.pprofile_image);
+            if(currentProject.getProfilePic() == null){
+                Log.d("image", "null");
+            }
+            pimage.setImageBitmap(currentProject.getProfilePic());
             TextView pdescription = (TextView)findViewById(R.id.pproject_description);
             pdescription.setText(description);
-            LinearLayout stepsLayout = (LinearLayout)findViewById(R.id.pstepsList);
-            Iterator<Step> iter = steps.iterator();
-            int numStep = 1;
-            
-            while(iter.hasNext()){
-                Step temps = iter.next(); 
-                TextView sprompt = new TextView(ProjectActivity.this);
-                sprompt.setTextColor(0xff000000);
-                sprompt.setBackgroundColor(0xff888888);
-                sprompt.setTextSize(14);
-                sprompt.setWidth(LinearLayout.LayoutParams.WRAP_CONTENT);
-                sprompt.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
-                sprompt.setGravity(0x03);
-                sprompt.setText("Step" + numStep);
-                
-                Log.d("Debug", "in the loop");
-                
-                stepsLayout.addView(sprompt,new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT));
-                
-                TextView stepIntruction = new TextView(ProjectActivity.this);
-                stepIntruction.setText(temps.getDescription());
-                stepsLayout.addView(stepIntruction,new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT));
-                
-                ImageView stepMedia = new ImageView(ProjectActivity.this);
-                stepMedia.setImageBitmap(temps.getMedia());
-                stepsLayout.addView(stepMedia,new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT));
-              }
+            if(step1Text.getText() != null){
+            TextView step1Descrption = (TextView)findViewById(R.id.pfirst_step);
+            step1Descrption.setText(step1Text.getText().toString());
+            ImageView stepImage = (ImageView)findViewById(R.id.pimage_button);
+            stepImage.setImageBitmap(step1Image.getDrawingCache());
+            }
+            CustomizedStepAdapter previewStepAdapter = new CustomizedStepAdapter(ProjectActivity.this, steps);
+            ListView previewStepListView = (ListView) findViewById(R.id.pstepsList);
+            previewStepListView.setAdapter(previewStepAdapter);
             break;     
             }
         }
     };
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-      super.onActivityResult(requestCode, resultCode, data);
-      try {
-      if (requestCode == 1) {
-          if(resultCode == RESULT_OK){            
-          }
-          if (resultCode == RESULT_CANCELED) {  
-              // what do we do if result is canceled?
-          }
-          
-       }
-      }catch (Exception e) {
-          Log.e("Error Selecting Picture", e.getMessage());
-      }
+        super.onActivityResult(requestCode, resultCode, data);
+        try {
+            if (requestCode == 1000) {
+                if(resultCode == RESULT_OK){  
+                    ArrayList<String> imagePath = data.getStringArrayListExtra(GALLERY_INTENT);
+
+                    //          currentStep.setmedia(bmp);
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    // Find dimension of the picture
+                    options.inJustDecodeBounds = true;
+                    Bitmap bmp = BitmapFactory.decodeFile(imagePath.get(0));
+                    if (bmp == null)
+                        Log.d("doom", "bad");
+                    
+                    ImageView image = (ImageView) findViewById(clicked.getId());
+                    if (image == null)
+                        Log.d("imageStep","good");
+                    image.setImageBitmap(bmp);
+                    switch(clicked.getId()){
+                    case R.id.profile_image_post_project:
+                        currentProject.setProfilePic(bmp);
+                        break;
+                    case R.id.image_button_post_project:
+                        currentStep.setMediaPath(imagePath.get(0));
+                    }
+
+                }if (resultCode == RESULT_CANCELED) {  
+                    // what do we do if result is canceled?
+                }
+            }
+        }catch (Exception e) {
+            Log.e("Error Selecting Picture", e.getMessage());
+        }
     }
     
     public void changeBack(){

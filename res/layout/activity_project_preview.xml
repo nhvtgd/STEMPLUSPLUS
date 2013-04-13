@@ -58,9 +58,10 @@
       
      <ImageView
             android:id="@+id/pprofile_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/pproject_name" />
+            android:layout_width="80dp"
+       		android:layout_height="80dp"
+       	 android:layout_below="@id/pproject_name"
+        	android:background="@drawable/custom_button_blue" />
      
     <TextView
         android:id="@+id/pprojectDescription"
@@ -104,13 +105,40 @@
         android:textSize="12sp"
         android:gravity="left"  />
     
-     
+       <LinearLayout 
+      android:id="@+id/firstStep_preview_project"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_below="@id/psteps"
+    android:weightSum="1" >
+    
+    
+    <TextView
+        android:id="@+id/pfirst_step"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="0.8"
+        android:gravity="center" >
+
+    </TextView>
+    
+	<ImageView
+        android:id = "@+id/pimage_button"
+       	android:layout_width="80dp"
+       	android:layout_height="80dp"
+        android:layout_below="@id/project_picture_prompt_post_project"
+        android:background="@drawable/custom_button_blue"
+        android:text="Add media"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/white"/>
+
+</LinearLayout>
     <ListView
         android:id="@+id/pstepsList"
          android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@id/psteps"
-        android:layout_alignTop="@id/linearOuter"
+        android:layout_below="@id/firstStep_preview_project"
         android:columnWidth="90dp"
         android:gravity="left"
         android:horizontalSpacing="10dp"
