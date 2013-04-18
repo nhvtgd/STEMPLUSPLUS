@@ -44,7 +44,7 @@ public class CustomizedGallery extends StemPlusPlus {
 	/** ImageAdapter for the array Bitmap */
 	private ImageAdapter imageAdapter;
 	
-	ArrayList<String> imageFromCam = new ArrayList();
+	ArrayList<String> imageFromCam = new ArrayList<String>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
