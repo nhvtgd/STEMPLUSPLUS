@@ -18,21 +18,17 @@
     </EditText>
     <!-- Price -->
 
-   <Button
+   <ImageView
         android:id = "@+id/image_button_hidden"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_weight="0.1"
-        android:layout_marginBottom="@dimen/button_marginB"
-        android:layout_marginLeft="@dimen/button_marginL"
-        android:layout_marginRight="@dimen/button_marginR"
-        android:layout_marginTop="@dimen/button_marginT"
-        android:background="@drawable/custom_button_blue"
+         android:background="@drawable/custom_button_blue"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/white"
         android:textSize="@dimen/small_button_text_size"
         android:text="Add media">
     
-    </Button>
+    </ImageView>
 
 </LinearLayout>

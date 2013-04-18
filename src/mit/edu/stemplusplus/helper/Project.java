@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import android.graphics.Bitmap;
+
 public class Project implements Serializable{
 	/**
 	 * 
@@ -17,6 +19,7 @@ public class Project implements Serializable{
 	private static final long serialVersionUID = -8564171545740507368L;
 	private String name;
 	private Ranking rank;
+	private Bitmap profilePic;
 	private User user;
 	private List<Step> steps;
 	private List<Comment> comments;
@@ -46,7 +49,8 @@ public class Project implements Serializable{
 		date = new Date();
 		category = c;
 	}
-
+	
+	
 	public Project(String n, User u, String d, String c,
 			ArrayList<? extends Object> images) {
 		this(n, u, d, c);
@@ -60,7 +64,10 @@ public class Project implements Serializable{
 	public void setRank(Ranking rank) {
 		this.rank = rank;
 	}
-
+	
+	public void setProfilePic(Bitmap bmp){
+	    profilePic = bmp;
+	}
 	public void setUser(User user) {
 		this.user = user;
 	}
@@ -94,7 +101,9 @@ public class Project implements Serializable{
 	public List<Step> getSteps() {
 		return steps;
 	}
-
+	public Bitmap getProfilePic(){
+	    return profilePic;
+	}
 	public void addStep(Step s) {
 		steps.add(s);
 	}

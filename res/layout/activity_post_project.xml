@@ -75,15 +75,11 @@
         android:textSize="12sp" >
     </TextView>
       
-      <Button
+      <ImageView
         android:id = "@+id/profile_image_post_project"
-         android:layout_width="wrap_content"
-       	android:layout_height="wrap_content"
+       	android:layout_width="80dp"
+       	android:layout_height="80dp"
         android:layout_below="@id/project_picture_prompt_post_project"
-        android:layout_marginBottom="@dimen/button_marginB"
-        android:layout_marginLeft="@dimen/button_marginL"
-        android:layout_marginRight="@dimen/button_marginR"
-        android:layout_marginTop="@dimen/button_marginT"
         android:background="@drawable/custom_button_blue"
         android:text="Profile Picture"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -153,22 +149,15 @@
 
     </EditText>
     
-	<Button
+	<ImageView
         android:id = "@+id/image_button_post_project"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_weight="0.1"
-        android:layout_marginBottom="@dimen/button_marginB"
-        android:layout_marginLeft="@dimen/button_marginL"
-        android:layout_marginRight="@dimen/button_marginR"
-        android:layout_marginTop="@dimen/button_marginT"
+       	android:layout_width="80dp"
+       	android:layout_height="80dp"
+        android:layout_below="@id/project_picture_prompt_post_project"
         android:background="@drawable/custom_button_blue"
+        android:text="Add media"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/white"
-        android:textSize="@dimen/small_button_text_size"
-        android:text="Add media">
-    
-    </Button>
+        android:textColor="@color/white"/>
 
 </LinearLayout>
 	
