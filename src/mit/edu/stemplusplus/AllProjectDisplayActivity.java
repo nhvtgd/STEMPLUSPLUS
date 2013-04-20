@@ -2,24 +2,29 @@ package mit.edu.stemplusplus;
 
 import java.util.ArrayList;
 
+import mit.edu.stemplusplus.helper.AlertDialogManager;
 import mit.edu.stemplusplus.helper.MyHorizontalLayout;
+import mit.edu.stemplusplus.helper.ParseDatabase;
 import mit.edu.stemplusplus.helper.Project;
-
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.parse.ParseException;
 
 /**
  * This class display all of the projects currently active
@@ -38,11 +43,15 @@ public class AllProjectDisplayActivity extends StemPlusPlus {
 	ImageAdapter adapter;
 
 	GridView imagegrid;
+	
+	Activity act = this;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_all_project_display);
+		ParseDatabase.initProject(this);
+		
 		// call the horizontal layout
 		MyHorizontalLayout picture = (MyHorizontalLayout) findViewById(R.id.myphoto_all_project_display);
 		picture.setArrayList(myPicture);
@@ -60,14 +69,20 @@ public class AllProjectDisplayActivity extends StemPlusPlus {
 		/*********
 		 * Make test project here
 		 */
-		Project testProject1 = makeTestProject(myPicture, "Project Demo 1");
-		Project testProject2 = makeTestProject(myPicture, "Project Demo 2");
-		projectDisplay.add(testProject1);
-		projectDisplay.add(testProject2);
+		
+		GetData data = new GetData();
+		data.execute();
+		
 
-		/** End Test */
-		adapter = new ImageAdapter(projectDisplay);
-		imagegrid.setAdapter(adapter);
+		Button addProjectButton = (Button) findViewById(R.id.add_project_all_project_display);
+		addProjectButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(v.getContext(), ProjectActivity.class);
+				startActivity(i);
+			}
+		});
 
 		Log.d("create", "ok");
 	}
@@ -132,17 +147,15 @@ public class AllProjectDisplayActivity extends StemPlusPlus {
 
 			final Project project = projects.get(position);
 			Log.d("get project", "ok");
-			holder.projectDescription.setText(project.getDescription());
+			holder.projectDescription.setText(project.getName());
 			Log.d("set Text", "ok");
-			Log.d("Image class", project.getImages().get(0).getClass()
-					.toString());
-			if (project.getImages().get(0).getClass().equals(String.class)) {
+			
+			if (project.getProfileImagePath() != null) {
 
 				holder.projectImage.setImageBitmap(BitmapFactory
-						.decodeFile(project.getImages().get(0).toString()));
+						.decodeFile(project.getProfileImagePath()));
 			} else
-				holder.projectImage.setImageBitmap((Bitmap) project.getImages()
-						.get(0));
+				holder.projectImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.test_image));
 			Log.d("set Image", "ok");
 			holder.projectImage.setOnClickListener(new OnClickListener() {
 
@@ -178,6 +191,68 @@ public class AllProjectDisplayActivity extends StemPlusPlus {
 		public void setId(int id) {
 			this.id = id;
 		}
+	}
+	
+	
+	private class GetData extends AsyncTask<Void, Void, ArrayList<Project>> {
+		ProgressDialog progressDialog;
+		/**
+		 * Some constant default query to call on the server side
+		 */
+
+		/**
+		 * Place holder constructor to call excute method later
+		 */
+		public GetData() {
+
+		}
+
+		@Override
+		protected void onPreExecute() {
+			progressDialog = new ProgressDialog(act);
+			progressDialog.setMessage("Downloading data ...");
+			progressDialog.show();
+			Log.d("pD", "progess Dialog created");
+		}
+
+		@Override
+		protected ArrayList<Project> doInBackground(Void... params) {
+
+
+			Log.d("dataBase", "Creat data base");
+
+			ArrayList<Project> project = null;
+			try {
+				project = ParseDatabase.getListOfAllProjects();
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+				
+			return project;
+
+		}
+
+		@Override
+		protected void onPostExecute(ArrayList<Project> result) {
+			if (result.size() > 0) {
+				/** End Test */
+				projectDisplay = result;
+				adapter = new ImageAdapter(projectDisplay);
+				imagegrid.setAdapter(adapter);
+				adapter.notifyDataSetChanged();
+				progressDialog.cancel();
+			} else {
+				progressDialog.cancel();
+
+				new AlertDialogManager().showAlertDialog(act, "Not Found",
+						"No Item matches your query", false);
+			}
+
+		}
+
+
+
 	}
 
 /*	@Override

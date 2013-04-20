@@ -2,8 +2,14 @@ package mit.edu.stemplusplus;
 
 import java.util.ArrayList;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.SaveCallback;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -22,6 +28,7 @@ import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import mit.edu.stemplusplus.helper.*;
 
 public class ProjectActivity extends StemPlusPlus {
@@ -41,12 +48,15 @@ public class ProjectActivity extends StemPlusPlus {
     private EditText desText;
     private EditText step1Text;
     private ImageView step1Image;
+    private Activity act = this;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_project);
+        ParseDatabase.initProject(this);
         Log.d("load layout", "Ok");
+        
 
         currentStep = new Step();
         currentProject = new Project();
@@ -88,6 +98,7 @@ public class ProjectActivity extends StemPlusPlus {
         switch (v.getId()) {  
         case R.id.profile_image_post_project:
             Intent intentprofile = new Intent(v.getContext(), CustomizedGallery.class);
+            
             startActivityForResult(intentprofile, 1000);
             clicked = v;
             break;
@@ -114,14 +125,37 @@ public class ProjectActivity extends StemPlusPlus {
             description = desText.getText().toString();
             currentProject.setDescription(description);
             currentProject.setSteps(steps);
+            
+            
+            
+            
+            //Tran
+            
+            
+                        
+            ParseObject parseObject = ParseDatabase.createParseObjectFromBasicProject(currentProject);
+            if (parseObject == null){
+            	Log.d("I'm doom", "zzzz");
+            }
+            parseObject.saveInBackground(new SaveCallback() {
+				
+				@Override
+				public void done(ParseException arg0) {
+					Toast.makeText(act, "Succesfully", Toast.LENGTH_LONG).show();
+					
+				}
+			});
+            
+            
+            
             //TODO
             /// better to use service here
-            Intent store = new Intent(ProjectActivity.this, StoreNewProject.class);
+            Intent store = new Intent(ProjectActivity.this, AllProjectDisplayActivity.class);
             // when all objects are implementing Parcelable, it would be easy to send them to the next intent
            // intent.putExtra("project", transfer);
             startActivity(store);
             //there needs to be a way of checking whether the commit is successful or not
-             boolean success = true;
+/*             boolean success = true;
             Intent messageIntent = new Intent(ProjectActivity.this, commitMessageActivity.class);
             
             if(success){
@@ -130,7 +164,7 @@ public class ProjectActivity extends StemPlusPlus {
             } else{
                 messageIntent.putExtra("commit Message", "Your project commitment failed!");
             }
-            startActivity(messageIntent);
+            startActivity(messageIntent);*/
             break;
             
         case R.id.preview_post_project:
@@ -182,6 +216,7 @@ public class ProjectActivity extends StemPlusPlus {
                     switch(clicked.getId()){
                     case R.id.profile_image_post_project:
                         currentProject.setProfilePic(bmp);
+                        currentProject.setProfileImagePath(imagePath.get(0));
                         break;
                     case R.id.image_button_post_project:
                         currentStep.setMediaPath(imagePath.get(0));

@@ -19,6 +19,7 @@ public class StemPlusPlus extends Activity {
 	public static final String CATEGORY_PARSE = "category";
 	public static final String USER_PARSE = "user";
 	public static final String STEP_PARSE = "step";
+	public static final String PROFILE_PARSE = "profile";
 	public static String IMAGE_INTENT = "image";
 	public static String GALLERY_INTENT = "gallery";
 	public static String PROJECT_INTENT = "Project";

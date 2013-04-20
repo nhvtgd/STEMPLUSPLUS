@@ -27,6 +27,8 @@ public class Project implements Serializable{
 	private Date date;
 	private String category;
 	private ArrayList<? extends Object> images;
+	private long id;
+	private String profilePicPath;
 
 	public Project() {
 		rank = null;
@@ -36,6 +38,17 @@ public class Project implements Serializable{
 		description = "Nothing much";
 		user = null;
 		name = "Tran";
+		this.profilePicPath = "";
+	}
+	
+	public Project(String name, String description) {
+		rank = null;
+		comments = null;
+		date = new Date();
+		category = "science";
+		this.description = description;
+		user = null;
+		this.name = name;
 	}
 
 	/** this is for testing only, don't use */
@@ -164,5 +177,22 @@ public class Project implements Serializable{
 
 	public void setImages(ArrayList<? extends Object> images) {
 		this.images = images;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+	
+	public void setProfileImagePath(String profilePath){
+		this.profilePicPath = profilePath;
+	}
+	
+	public String getProfileImagePath(){
+		return this.profilePicPath;
+		
 	}
 }

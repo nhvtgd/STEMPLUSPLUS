@@ -5,10 +5,10 @@
     android:orientation="vertical" >
 
     <ImageView
-        android:src="@drawable/image_test"
         android:id="@+id/project_avatar_all_project_display"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:src="@drawable/image_test" >
     </ImageView>
 
     <TextView
@@ -16,9 +16,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/project_description_allProjecDisplay" />
-    
-    
-  <!--   <RelativeLayout
+
+    <!--
+    <RelativeLayout
         android:layout_width="180dp"
         android:layout_height="80dp"
         android:background="#ff0000" >
@@ -44,6 +44,7 @@
             android:layout_alignParentLeft="true"
             android:text="Image description is too large that it can not be fit in one line"
             android:textColor="@color/white" />
-    </RelativeLayout> -->
+    </RelativeLayout>
+    -->
 
 </LinearLayout>

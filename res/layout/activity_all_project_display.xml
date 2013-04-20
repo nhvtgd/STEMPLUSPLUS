@@ -5,12 +5,13 @@
     tools:context=".AllProjectDisplayActivity"
     android:orientation="vertical" >
 
-    <com.example.helperClass.MyHorizontalLayout
+    <mit.edu.stemplusplus.helper.MyHorizontalLayout
+        
         android:id="@+id/myphoto_all_project_display"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
-    </com.example.helperClass.MyHorizontalLayout>
+    </mit.edu.stemplusplus.helper.MyHorizontalLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

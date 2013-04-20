@@ -1,0 +1,89 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".PostProjectScreen" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <mit.edu.stemplusplus.helper.MyHorizontalLayout
+            android:id="@+id/myphoto_post_project_screen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+        </mit.edu.stemplusplus.helper.MyHorizontalLayout>
+
+        <Button
+            android:id="@+id/add_image_post_project_screen"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:text="Add Image" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <!--
+             <ListView
+            android:id="@+id/step_display_project_screen"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:divider="#b5b5b5"
+            android:dividerHeight="1dp"
+            android:listSelector="@android:drawable/list_selector_background" />
+        -->
+
+        <TableLayout
+            android:id="@+id/panel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?android:attr/listPreferredItemHeight" >
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:id="@+id/list_item_post_project_screen"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.1"
+                    android:src="@drawable/handle_icon" />
+
+                <!-- Information -->
+
+                <TextView
+                    android:id="@+id/step_name_post_project_screen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.8"
+                    android:gravity="center"
+                    android:text="Step Name" >
+                </TextView>
+                <!-- Price -->
+
+                <ImageView
+                    android:id="@+id/drop_spot_post_project_screen"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="0.1"
+                    android:adjustViewBounds="true"
+                    android:background="@color/grey"
+                    android:padding="8dp" >
+                </ImageView>
+            </TableRow>
+        </TableLayout>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/add_project_post_project_screen"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Add New Step" />
+
+</LinearLayout>

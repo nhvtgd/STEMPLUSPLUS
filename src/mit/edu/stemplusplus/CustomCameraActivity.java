@@ -46,6 +46,7 @@ public class CustomCameraActivity extends StemPlusPlus implements
 
 	protected static final int MEDIA_TYPE_IMAGE = 1;
 	protected static final int REQUEST_CODE = 10;
+	protected static int id = 0;
 
 	Camera camera;
 
@@ -248,7 +249,8 @@ public class CustomCameraActivity extends StemPlusPlus implements
 				.format(new Date());
 		File mediaFile;
 		if (type == MEDIA_TYPE_IMAGE) {
-			mediaFile = new File(mediaStorageDir.getPath() +".jpeg");
+			mediaFile = new File(mediaStorageDir.getPath()+ java.util.UUID.randomUUID().toString() +".jpeg");
+			
 
 		} else {
 			return null;

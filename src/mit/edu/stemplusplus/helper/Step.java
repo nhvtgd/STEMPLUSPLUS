@@ -21,6 +21,15 @@ public class Step implements Serializable{
     private Bitmap media;
     private List<Step> pastVersions;
     private String mediaPath;
+    public static final String DESCRIPTION_STEP= "description";
+    public static final String IMAGE_PATH_STEP = "imagePath";
+    
+    public Step(String description,String mediaPath){
+    	this.description = description;
+    	this.mediaPath = mediaPath;
+        comments = new ArrayList<Comment>();
+        pastVersions = new ArrayList<Step>();
+    }
     
     public Step(String d) {
         description = d;

@@ -5,14 +5,15 @@
     android:versionName="1.0" >
 
     <uses-feature android:name="android.hardware.camera" />
-	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CACHE" />
 
-	<uses-permission android:name="android.permission.INTERNET"/>
-	<uses-permission android:name= "android.permission.CACHE"/>
-	<user-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <user-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -30,11 +31,6 @@
         <activity
             android:name="mit.edu.stemplusplus.ProjectActivity"
             android:label="@string/title_activity_project" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="mit.edu.stemplusplus.CustomizedGallery"
@@ -46,8 +42,13 @@
             android:label="@string/title_activity_menu_screen" >
         </activity>
         <activity
-            android:name="commit.edu.stemplusplus.MenuScreen"
+            android:name="mit.edu.stemplusplus.MenuScreen"
             android:label="@string/title_activity_menu_screen" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="mit.edu.stemplusplus.PreviewDemo"
