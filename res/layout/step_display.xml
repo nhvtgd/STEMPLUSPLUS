@@ -22,7 +22,9 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:layout_weight="0.8"
-        android:text="Step Name" >
+        android:text="Step 1: Do this and then this and then that and then that and then......"
+        android:background="@drawable/blue_border_text" 
+        >
     </TextView>
     <!-- Price -->
 
