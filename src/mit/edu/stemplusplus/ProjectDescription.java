@@ -56,10 +56,21 @@ public class ProjectDescription extends Activity {
 		Intent getProjectIntent = getIntent();
 		selectedProject = (Project) getProjectIntent
 				.getSerializableExtra(StemPlusPlus.PROJECT_INTENT);
+		ParseQuery query = new ParseQuery(StemPlusPlus.PROJECT_PARSE);
+		try {
+			ParseObject projectObject = query.get(selectedProject.getId());
+			projectObject.refresh();
+			selectedProject = ParseDatabase.getBasicProjectFromParseObject(projectObject);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		setUpView();
 	}
 
 	private void setUpView() {
+				
 		TextView projectDescription = (TextView) findViewById(R.id.description_project_description);
 		projectDescription.setText(selectedProject.getDescription());
 
@@ -129,6 +140,7 @@ public class ProjectDescription extends Activity {
 		stepListView = (ListView) findViewById(R.id.step_listView_project_description);
 		stepListView.setAdapter(stepAdapter);
 		
+				
 		projectComments = selectedProject.getComments();
 		if (projectComments != null && projectComments.size() > 0){
 			for (Comment c: projectComments){

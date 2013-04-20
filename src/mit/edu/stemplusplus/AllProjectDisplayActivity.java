@@ -45,6 +45,8 @@ public class AllProjectDisplayActivity extends StemPlusPlus {
 	GridView imagegrid;
 	
 	Activity act = this;
+	
+	private static final String TITLE = "Project Title";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -147,7 +149,7 @@ public class AllProjectDisplayActivity extends StemPlusPlus {
 
 			final Project project = projects.get(position);
 			Log.d("get project", "ok");
-			holder.projectDescription.setText(project.getName());
+			holder.projectDescription.setText(TITLE + " " + project.getName());
 			Log.d("set Text", "ok");
 			
 			if (project.getProfileImagePath() != null) {
