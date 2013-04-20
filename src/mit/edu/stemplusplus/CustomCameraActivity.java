@@ -248,10 +248,8 @@ public class CustomCameraActivity extends StemPlusPlus implements
 				.format(new Date());
 		File mediaFile;
 		if (type == MEDIA_TYPE_IMAGE) {
-			mediaFile = new File(mediaStorageDir.getPath() + File.separator
-					+ "IMG_" + timeStamp + ".jpeg");
-			Log.d("create media file", mediaStorageDir.getPath()
-					+ File.separator + "IMG_" + timeStamp + ".jpeg");
+			mediaFile = new File(mediaStorageDir.getPath() +".jpeg");
+
 		} else {
 			return null;
 		}

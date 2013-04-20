@@ -29,7 +29,13 @@ public class Project implements Serializable{
 	private ArrayList<? extends Object> images;
 
 	public Project() {
-
+		rank = null;
+		comments = null;
+		date = new Date();
+		category = "science";
+		description = "Nothing much";
+		user = null;
+		name = "Tran";
 	}
 
 	/** this is for testing only, don't use */
