@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -7,9 +7,11 @@
     <ImageView
         android:id="@+id/project_avatar_all_project_display"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="wrap_content" 
+        android:background="@drawable/yellow_border_image"
         android:src="@drawable/image_test" >
     </ImageView>
+
 
     <TextView
         android:id="@+id/project_description_all_project_display"
@@ -17,34 +19,4 @@
         android:layout_height="wrap_content"
         android:text="@string/project_description_allProjecDisplay" />
 
-    <!--
-    <RelativeLayout
-        android:layout_width="180dp"
-        android:layout_height="80dp"
-        android:background="#ff0000" >
-
-        <ImageView
-            android:id="@+id/project_avatar_all_project_display"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:background="@color/black"
-            android:focusable="true"
-            android:padding="0dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/image_test" />
-
-        <TextView
-            android:id="@+id/project_description_all_project_display"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:text="Image description is too large that it can not be fit in one line"
-            android:textColor="@color/white" />
-    </RelativeLayout>
-    -->
-
-</LinearLayout>
+</RelativeLayout>
