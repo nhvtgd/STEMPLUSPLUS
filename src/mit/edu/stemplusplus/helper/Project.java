@@ -27,7 +27,7 @@ public class Project implements Serializable{
 	private Date date;
 	private String category;
 	private ArrayList<? extends Object> images;
-	private long id;
+	private String id;
 	private String profilePicPath;
 
 	public Project() {
@@ -179,11 +179,11 @@ public class Project implements Serializable{
 		this.images = images;
 	}
 
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	

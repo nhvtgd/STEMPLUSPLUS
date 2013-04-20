@@ -68,8 +68,12 @@ public class ParseDatabase {
 			stepArray.put(stepObject);
 
 		}
-		
-		projectObject.put(StemPlusPlus.PROFILE_PARSE, project.getProfileImagePath());
+
+		projectObject.put(StemPlusPlus.COMMENT_PARSE,
+				makeCommentArray(project.getComments()));
+
+		projectObject.put(StemPlusPlus.PROFILE_PARSE,
+				project.getProfileImagePath());
 		projectObject.put(StemPlusPlus.STEP_PARSE, stepArray);
 		projectObject.put(StemPlusPlus.DESCRIPTION_PARSE,
 				project.getDescription());
@@ -114,35 +118,78 @@ public class ParseDatabase {
 	 *            A ParseObject
 	 * @return A Project type
 	 */
-	public static Project getBasicProjectFromParseObject(ParseObject parseObject){
-        String name = parseObject.getString(StemPlusPlus.NAME_PARSE);
-        JSONArray step = parseObject.getJSONArray(StemPlusPlus.STEP_PARSE);
-        
-        List<Step> steps = new ArrayList<Step>();
-        for (int i = 0; i < step.length(); i ++){
-        	Step newStep = null;
+	public static Project getBasicProjectFromParseObject(ParseObject parseObject) {
+		String name = parseObject.getString(StemPlusPlus.NAME_PARSE);
+		JSONArray step = parseObject.getJSONArray(StemPlusPlus.STEP_PARSE);
+		String id = parseObject.getObjectId();
+		List<Step> steps = new ArrayList<Step>();
+		for (int i = 0; i < step.length(); i++) {
+			Step newStep = null;
 			try {
-				newStep = new Step(step.getJSONObject(i).getString(Step.DESCRIPTION_STEP), 
-						step.getJSONObject(i).getString(Step.IMAGE_PATH_STEP));
+				newStep = new Step(step.getJSONObject(i).getString(
+						Step.DESCRIPTION_STEP), step.getJSONObject(i)
+						.getString(Step.IMAGE_PATH_STEP));
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-        	steps.add(newStep);
-        }
-        
-        String description = parseObject.getString(StemPlusPlus.DESCRIPTION_PARSE);
-        String category = parseObject.getString(StemPlusPlus.CATEGORY_PARSE);       
-        String profilePic = parseObject.getString(StemPlusPlus.PROFILE_PARSE);
-        
-        Project newProject = new Project();
-        newProject.setName(name);
-        newProject.setSteps(steps);
-        newProject.setDescription(description);
-        newProject.setProfileImagePath(profilePic);
-        newProject.setDate(parseObject.getCreatedAt());
-        newProject.setCategory(category);
-        return newProject;
-    }
+			steps.add(newStep);
+		}
+
+		JSONArray comments = parseObject
+				.getJSONArray(StemPlusPlus.COMMENT_PARSE);
+		List<Comment> comment = new ArrayList<Comment>();
+		if (comments != null && comments.length() > 0) {
+			for (int i = 0; i < comments.length(); i++) {
+				Comment newComment = null;
+				try {
+					newComment = new Comment(comments.getJSONObject(i)
+							.getString(Comment.DETAIL_PARSE));
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				comment.add(newComment);
+			}
+		}
+
+		String description = parseObject
+				.getString(StemPlusPlus.DESCRIPTION_PARSE);
+		String category = parseObject.getString(StemPlusPlus.CATEGORY_PARSE);
+		String profilePic = parseObject.getString(StemPlusPlus.PROFILE_PARSE);
+
+		Project newProject = new Project();
+		newProject.setName(name);
+		newProject.setSteps(steps);
+		newProject.setDescription(description);
+		newProject.setProfileImagePath(profilePic);
+		newProject.setDate(parseObject.getCreatedAt());
+		newProject.setCategory(category);
+		newProject.setComments(comment);
+		newProject.setId(id);
+		return newProject;
+	}
+
+	public static JSONArray makeCommentArray(List<Comment> comments) {
+		if (comments != null) {
+			JSONArray commentArray = new JSONArray();
+			for (int i = 0; i < comments.size(); i++) {
+				JSONObject commentObject = new JSONObject();
+				try {
+					commentObject.put(Comment.TITLE_PARSE, comments.get(i)
+							.getUser().getUsername());
+					commentObject.put(Comment.DETAIL_PARSE, comments.get(i)
+							.getComment());
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				commentArray.put(commentObject);
+
+			}
+			return commentArray;
+		}
+		return null;
+
+	}
 
 	/**
 	 * Send the ParseObject to the server
@@ -290,7 +337,8 @@ public class ParseDatabase {
 	 * @return An ArrayList of all Project objects, or null if nothing is found
 	 * @throws ParseException
 	 */
-	public static ArrayList<Project> getListOfAllProjects() throws ParseException {
+	public static ArrayList<Project> getListOfAllProjects()
+			throws ParseException {
 		ParseQuery query = getAllProjects();
 		ArrayList<Project> projects = new ArrayList<Project>();
 		int total = 0;

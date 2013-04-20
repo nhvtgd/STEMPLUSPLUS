@@ -14,7 +14,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class ProjectDataSource {
 
-	  // Database fields
+	  /*// Database fields
 	  private SQLiteDatabase database;
 	  private MySQLiteHelper dbHelper;
 	  private String[] allColumns = { MySQLiteHelper.COLUMN_ID,
@@ -96,5 +96,5 @@ public class ProjectDataSource {
 	    project.setDescription(cursor.getString(2));
 	    
 	    return project;
-	  }
+	  }*/
 	} 

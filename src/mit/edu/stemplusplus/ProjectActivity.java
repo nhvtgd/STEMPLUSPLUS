@@ -137,6 +137,7 @@ public class ProjectActivity extends StemPlusPlus {
             if (parseObject == null){
             	Log.d("I'm doom", "zzzz");
             }
+            currentProject.setId(parseObject.getObjectId());
             parseObject.saveInBackground(new SaveCallback() {
 				
 				@Override

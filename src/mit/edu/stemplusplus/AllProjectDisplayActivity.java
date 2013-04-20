@@ -164,6 +164,7 @@ public class AllProjectDisplayActivity extends StemPlusPlus {
 					Intent i = new Intent(v.getContext(),
 							ProjectDescription.class);
 					i.putExtra(StemPlusPlus.PROJECT_INTENT, project);
+					
 					startActivity(i);
 
 				}
