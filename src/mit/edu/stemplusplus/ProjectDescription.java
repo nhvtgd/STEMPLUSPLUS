@@ -162,6 +162,7 @@ public class ProjectDescription extends Activity {
 	
 	private void addCommenDynamically(String comment){
 		LinearLayout ll = (LinearLayout) findViewById(R.id.comment_list_view_project_description);
+		
 		View v = getLayoutInflater().inflate(R.layout.comment_display, null);
 		TextView commentTitle = (TextView) v.findViewById(R.id.comment_tittle_comment_display);
 		TextView commentDetail = (TextView) v.findViewById(R.id.comment_detail_comment_display);
