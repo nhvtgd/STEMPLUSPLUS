@@ -69,8 +69,10 @@ public class ParseDatabase {
 
 		}
 
-		projectObject.put(StemPlusPlus.COMMENT_PARSE,
+		if (makeCommentArray(project.getComments()) != null)
+			projectObject.put(StemPlusPlus.COMMENT_PARSE,
 				makeCommentArray(project.getComments()));
+		
 
 		projectObject.put(StemPlusPlus.PROFILE_PARSE,
 				project.getProfileImagePath());

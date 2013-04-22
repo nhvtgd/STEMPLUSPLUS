@@ -34,6 +34,7 @@ import android.widget.TextView.OnEditorActionListener;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.RefreshCallback;
 
 public class ProjectDescription extends Activity {
 	Project selectedProject;
@@ -58,15 +59,28 @@ public class ProjectDescription extends Activity {
 				.getSerializableExtra(StemPlusPlus.PROJECT_INTENT);
 		ParseQuery query = new ParseQuery(StemPlusPlus.PROJECT_PARSE);
 		try {
-			ParseObject projectObject = query.get(selectedProject.getId());
-			projectObject.refresh();
-			selectedProject = ParseDatabase.getBasicProjectFromParseObject(projectObject);
+			final ParseObject projectObject = query.get(selectedProject.getId());
+			projectObject.refreshInBackground(new RefreshCallback() {
+				
+				@Override
+				public void done(ParseObject arg0, ParseException arg1) {
+					selectedProject = ParseDatabase.getBasicProjectFromParseObject(projectObject);
+					projectComments = selectedProject.getComments();
+					if (projectComments != null && projectComments.size() > 0){
+						for (Comment c: projectComments){
+							addCommenDynamically(c.getComment());
+						}
+						
+					}
+				}
+			});
+			
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		setUpView();
+		
 	}
 
 	private void setUpView() {
@@ -141,13 +155,7 @@ public class ProjectDescription extends Activity {
 		stepListView.setAdapter(stepAdapter);
 		
 				
-		projectComments = selectedProject.getComments();
-		if (projectComments != null && projectComments.size() > 0){
-			for (Comment c: projectComments){
-				addCommenDynamically(c.getComment());
-			}
-			
-		}
+		
 		
 		
 	}
