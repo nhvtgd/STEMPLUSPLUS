@@ -1,5 +1,6 @@
 package mit.edu.stemplusplus;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import mit.edu.stemplusplus.helper.AlertDialogManager;
@@ -152,7 +153,7 @@ public class AllProjectDisplayActivity extends StemPlusPlus {
 			holder.projectDescription.setText(TITLE + " " + project.getName());
 			Log.d("set Text", "ok");
 			
-			if (project.getProfileImagePath() != null) {
+			if (project.getProfileImagePath() != null && new File(project.getProfileImagePath()).exists()) {
 
 				holder.projectImage.setImageBitmap(BitmapFactory
 						.decodeFile(project.getProfileImagePath()));

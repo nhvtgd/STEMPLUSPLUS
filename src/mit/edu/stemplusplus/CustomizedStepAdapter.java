@@ -1,5 +1,6 @@
 package mit.edu.stemplusplus;
 
+import java.io.File;
 import java.util.List;
 
 import mit.edu.stemplusplus.helper.Step;
@@ -10,8 +11,8 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -77,14 +78,14 @@ public class CustomizedStepAdapter extends BaseAdapter {
         Log.d("get project", "ok");
         holder.stepDescription.setText(step.getDescription());
         Log.d("set Text", "ok");
-        if (step.getMediaPath() != null) {
+        if (step.getMediaPath() != null && new File(step.getMediaPath()).exists()) {
             
             holder.stepImage.setImageBitmap(BitmapFactory.decodeFile(step
                     .getMediaPath()));
         } else if (step.getMedia() != null)
             holder.stepImage.setImageBitmap((Bitmap) step.getMedia());
         else {
-        	 holder.stepImage.setImageBitmap(BitmapFactory.decodeResource(activity.getResources(), R.drawable.test_image));
+        	 holder.stepImage.setImageBitmap(BitmapFactory.decodeResource(activity.getResources(), R.drawable.step_test_image));
         }
         Log.d("set Image", "ok");
         holder.stepImage.setOnClickListener(new OnClickListener() {
