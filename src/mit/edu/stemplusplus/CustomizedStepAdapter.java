@@ -78,13 +78,13 @@ public class CustomizedStepAdapter extends BaseAdapter {
         holder.stepDescription.setText(step.getDescription());
         Log.d("set Text", "ok");
         if (step.getMediaPath() != null) {
-            Log.d("step Image", step.getMediaPath());
+            
             holder.stepImage.setImageBitmap(BitmapFactory.decodeFile(step
                     .getMediaPath()));
         } else if (step.getMedia() != null)
             holder.stepImage.setImageBitmap((Bitmap) step.getMedia());
         else {
-            Log.d("Step Image", "Not good for demo");
+        	 holder.stepImage.setImageBitmap(BitmapFactory.decodeResource(activity.getResources(), R.drawable.test_image));
         }
         Log.d("set Image", "ok");
         holder.stepImage.setOnClickListener(new OnClickListener() {

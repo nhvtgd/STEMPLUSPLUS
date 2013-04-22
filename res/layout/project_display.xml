@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical" >
 
     <ImageView
@@ -9,14 +9,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" 
         android:background="@drawable/yellow_border_image"
-        android:src="@drawable/image_test" >
+        android:src="@drawable/image_test"
+        android:adjustViewBounds="true"
+        android:maxHeight="120dp" >
     </ImageView>
-
 
     <TextView
         android:id="@+id/project_description_all_project_display"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/project_description_allProjecDisplay" />
+        android:layout_alignBottom="@+id/project_avatar_all_project_display"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/blue_border_text"
+        android:text="@string/project_description_allProjecDisplay"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

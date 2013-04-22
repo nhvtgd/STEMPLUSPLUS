@@ -156,6 +156,7 @@ public class AllProjectDisplayActivity extends StemPlusPlus {
 
 				holder.projectImage.setImageBitmap(BitmapFactory
 						.decodeFile(project.getProfileImagePath()));
+				holder.projectImage.setMaxHeight(100);
 			} else
 				holder.projectImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.test_image));
 			Log.d("set Image", "ok");
