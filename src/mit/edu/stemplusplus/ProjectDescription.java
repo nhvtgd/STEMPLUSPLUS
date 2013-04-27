@@ -30,242 +30,264 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
+import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.RefreshCallback;
 
 public class ProjectDescription extends Activity {
-    Project selectedProject;
-    String projectDescription;
-    ArrayList<Step> projectSteps;
-    CustomizedStepAdapter stepAdapter;
-    ListView stepListView;
-    ListView commentListView;
-    CustomizedCommentAdapter commentAdapter;
-    EditText comment;
-    List<Comment> projectComments = new ArrayList<Comment>();
+	Project selectedProject;
+	String projectDescription;
+	ArrayList<Step> projectSteps;
+	CustomizedStepAdapter stepAdapter;
+	ListView stepListView;
+	ListView commentListView;
+	CustomizedCommentAdapter commentAdapter;
+	EditText comment;
+	List<Comment> projectComments = new ArrayList<Comment>();
+	TextView likeIcon;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_project_description);
-        ParseDatabase.initProject(this);
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_project_description);
+		ParseDatabase.initProject(this);
 
-        /** get the project selected earlier **/
-        Intent getProjectIntent = getIntent();
-        selectedProject = (Project) getProjectIntent
-                .getSerializableExtra(StemPlusPlus.PROJECT_INTENT);
-        ParseQuery query = new ParseQuery(StemPlusPlus.PROJECT_PARSE);
-        try {
-            final ParseObject projectObject = query
-                    .get(selectedProject.getId());
-            projectObject.refreshInBackground(new RefreshCallback() {
+		/** get the project selected earlier **/
+		Intent getProjectIntent = getIntent();
+		selectedProject = (Project) getProjectIntent
+				.getSerializableExtra(StemPlusPlus.PROJECT_INTENT);
+		ParseQuery query = new ParseQuery(StemPlusPlus.PROJECT_PARSE);
+		try {
+			final ParseObject projectObject = query
+					.get(selectedProject.getId());
+			projectObject.refreshInBackground(new RefreshCallback() {
 
-                @Override
-                public void done(ParseObject arg0, ParseException arg1) {
-                    selectedProject = ParseDatabase
-                            .getBasicProjectFromParseObject(projectObject);
-                    projectComments = selectedProject.getComments();
-                    if (projectComments != null && projectComments.size() > 0) {
-                        for (Comment c : projectComments) {
-                            addCommenDynamically(c.getComment());
-                        }
+				@Override
+				public void done(ParseObject arg0, ParseException arg1) {
+					selectedProject = ParseDatabase
+							.getBasicProjectFromParseObject(projectObject);
+					projectComments = selectedProject.getComments();
+					if (projectComments != null && projectComments.size() > 0) {
+						for (Comment c : projectComments) {
+							addCommenDynamically(c.getComment());
+						}
 
-                    }
-                }
-            });
+					}
+				}
+			});
 
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        setUpView();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		setUpView();
 
-    }
+	}
 
-    private void setUpView() {
+	private void setUpView() {
 
-        TextView projectDescription = (TextView) findViewById(R.id.description_project_description);
-        projectDescription.setText(selectedProject.getDescription());
+		TextView projectDescription = (TextView) findViewById(R.id.description_project_description);
+		projectDescription.setText(selectedProject.getDescription());
 
-        Button upVote = (Button) findViewById(R.id.upvote_project_description);
-        upVote.setOnClickListener(new View.OnClickListener() {
+		Button upVote = (Button) findViewById(R.id.upvote_project_description);
+		upVote.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                upVote(selectedProject);
+			@Override
+			public void onClick(View v) {
+				upVote(selectedProject);
 
-            }
-        });
+			}
+		});
 
-        Button downVote = (Button) findViewById(R.id.downvote_project_description);
-        downVote.setOnClickListener(new View.OnClickListener() {
+		Button downVote = (Button) findViewById(R.id.downvote_project_description);
+		downVote.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                downVote(selectedProject);
+			@Override
+			public void onClick(View v) {
+				downVote(selectedProject);
 
-            }
-        });
+			}
+		});
 
-        Button commentBtn = (Button) findViewById(R.id.comment_project_description);
-        commentBtn.setOnClickListener(new OnClickListener() {
+		likeIcon = (TextView) findViewById(R.id.ranking_project_description);
 
-            @Override
-            public void onClick(View v) {
-                comment = (EditText) findViewById(R.id.edittext_comment_project_description);
-                comment.setVisibility(View.VISIBLE);
-                comment.requestFocus();
-                if (comment.requestFocus()) {
-                    getWindow()
-                            .setSoftInputMode(
-                                    WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-                }
-                comment.setOnEditorActionListener(new OnEditorActionListener() {
-                    @Override
-                    public boolean onEditorAction(TextView v, int actionId,
-                            KeyEvent event) {
-                        boolean handled = false;
-                        if (actionId == EditorInfo.IME_ACTION_DONE) {
-                            handleComment(comment.getText().toString());
-                            handled = true;
-                        }
-                        comment.setVisibility(View.GONE);
-                        return handled;
-                    }
+		Button commentBtn = (Button) findViewById(R.id.comment_project_description);
+		commentBtn.setOnClickListener(new OnClickListener() {
 
-                    private void handleComment(String string) {
-                        projectComments.add(new Comment(string));
-                        ParseQuery query = new ParseQuery(
-                                StemPlusPlus.PROJECT_PARSE);
-                        try {
-                            ParseObject projectObject = query
-                                    .get(selectedProject.getId());
-                            projectObject.put(StemPlusPlus.COMMENT_PARSE,
-                                    ParseDatabase
-                                            .makeCommentArray(projectComments));
-                            projectObject.saveInBackground();
-                        } catch (ParseException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-                        addCommenDynamically(string);
-                    }
-                });
+			@Override
+			public void onClick(View v) {
+				comment = (EditText) findViewById(R.id.edittext_comment_project_description);
+				comment.setVisibility(View.VISIBLE);
+				comment.requestFocus();
+				if (comment.requestFocus()) {
+					getWindow()
+							.setSoftInputMode(
+									WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+				}
+				comment.setOnEditorActionListener(new OnEditorActionListener() {
+					@Override
+					public boolean onEditorAction(TextView v, int actionId,
+							KeyEvent event) {
+						boolean handled = false;
+						if (actionId == EditorInfo.IME_ACTION_DONE) {
+							handleComment(comment.getText().toString());
+							handled = true;
+						}
+						comment.setVisibility(View.GONE);
+						return handled;
+					}
 
-            }
-        });
-        List<Step> step = selectedProject.getSteps();
-        stepAdapter = new CustomizedStepAdapter(this, step);
-        stepListView = (ListView) findViewById(R.id.step_listView_project_description);
-        stepListView.setAdapter(stepAdapter);
+					private void handleComment(String string) {
+						projectComments.add(new Comment(string));
+						ParseQuery query = new ParseQuery(
+								StemPlusPlus.PROJECT_PARSE);
+						try {
+							ParseObject projectObject = query
+									.get(selectedProject.getId());
+							projectObject.put(StemPlusPlus.COMMENT_PARSE,
+									ParseDatabase
+											.makeCommentArray(projectComments));
+							projectObject.saveInBackground();
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						addCommenDynamically(string);
+					}
+				});
 
-    }
+			}
+		});
+		List<Step> step = selectedProject.getSteps();
+		stepAdapter = new CustomizedStepAdapter(this, step);
+		stepListView = (ListView) findViewById(R.id.step_listView_project_description);
+		stepListView.setAdapter(stepAdapter);
 
-    private void addCommenDynamically(String comment) {
-        LinearLayout ll = (LinearLayout) findViewById(R.id.comment_list_view_project_description);
+	}
 
-        View v = getLayoutInflater().inflate(R.layout.comment_display, null);
-        TextView commentTitle = (TextView) v
-                .findViewById(R.id.comment_tittle_comment_display);
-        TextView commentDetail = (TextView) v
-                .findViewById(R.id.comment_detail_comment_display);
-        commentTitle.setText("User comment on "
-                + new SimpleDateFormat("MM-dd-yy HH:mm:ss").format(new Date()));
-        commentDetail.setText(comment);
-        ll.addView(v);
-    }
+	private void addCommenDynamically(String comment) {
+		LinearLayout ll = (LinearLayout) findViewById(R.id.comment_list_view_project_description);
 
-    private void upVote(Project project) {
-        project.incrementRank();
-    }
+		View v = getLayoutInflater().inflate(R.layout.comment_display, null);
+		TextView commentTitle = (TextView) v
+				.findViewById(R.id.comment_tittle_comment_display);
+		TextView commentDetail = (TextView) v
+				.findViewById(R.id.comment_detail_comment_display);
+		commentTitle.setText("User comment on "
+				+ new SimpleDateFormat("MM-dd-yy HH:mm:ss").format(new Date()));
+		commentDetail.setText(comment);
+		ll.addView(v);
+	}
 
-    private void downVote(Project project) {
-        project.decrementRank();
-    }
+	private void upVote(Project project) {
+		project.setProjectRanking(project.getProjectRanking() + 1);
+		likeIcon.setText("" + project.getProjectRanking());
+		updateRanking();
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.activity_project_description, menu);
-        return true;
-    }
+	}
 
-    public class CustomizedCommentAdapter extends BaseAdapter {
-        private Activity activity;
-        /** The collections of sellable objects */
-        private List<Comment> data;
-        /** To inflate the view from an xml file */
-        private LayoutInflater inflater = null;
+	private void updateRanking() {
+		ParseQuery query = new ParseQuery(StemPlusPlus.PROJECT_PARSE);
+		try {
+			ParseObject object = query.get(selectedProject.getId());
+			object.put(StemPlusPlus.PROJECT_RANKING_PARSE,
+					selectedProject.getProjectRanking());
+			object.saveInBackground();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
-        public CustomizedCommentAdapter(Activity a, List<Comment> steps) {
-            activity = a;
-            data = steps;
-            inflater = (LayoutInflater) activity
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        }
+	private void downVote(Project project) {
+		project.setProjectRanking(project.getProjectRanking() - 1);
+		likeIcon.setText("" + project.getProjectRanking());
+		updateRanking();
+	}
 
-        @Override
-        public int getCount() {
-            // TODO Auto-generated method stub
-            return data.size();
-        }
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.activity_project_description, menu);
+		return true;
+	}
 
-        @Override
-        public Object getItem(int position) {
-            // TODO Auto-generated method stub
-            return data.get(position);
-        }
+	public class CustomizedCommentAdapter extends BaseAdapter {
+		private Activity activity;
+		/** The collections of sellable objects */
+		private List<Comment> data;
+		/** To inflate the view from an xml file */
+		private LayoutInflater inflater = null;
 
-        @Override
-        public long getItemId(int position) {
-            // TODO Auto-generated method stub
-            return 0;
-        }
+		public CustomizedCommentAdapter(Activity a, List<Comment> steps) {
+			activity = a;
+			data = steps;
+			inflater = (LayoutInflater) activity
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		}
 
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+		@Override
+		public int getCount() {
+			// TODO Auto-generated method stub
+			return data.size();
+		}
 
-            final ViewHolder holder;
-            if (convertView == null) {
-                holder = new ViewHolder();
-                convertView = inflater.inflate(R.layout.comment_display, null);
-                holder.commentTitle = (TextView) convertView
-                        .findViewById(R.id.comment_tittle_comment_display);
+		@Override
+		public Object getItem(int position) {
+			// TODO Auto-generated method stub
+			return data.get(position);
+		}
 
-                holder.commentDetail = (TextView) convertView
-                        .findViewById(R.id.comment_detail_comment_display);
-                convertView.setTag(holder);
-            }
-            // picture is already there
-            else {
-                holder = (ViewHolder) convertView.getTag();
+		@Override
+		public long getItemId(int position) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
 
-            }
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
 
-            Comment comment = data.get(position);
+			final ViewHolder holder;
+			if (convertView == null) {
+				holder = new ViewHolder();
+				convertView = inflater.inflate(R.layout.comment_display, null);
+				holder.commentTitle = (TextView) convertView
+						.findViewById(R.id.comment_tittle_comment_display);
 
-            Log.d("get project", "ok");
-            holder.commentDetail.setText(comment.getComment());
-            Log.d("set Text", "ok");
-            holder.commentTitle.setText(comment.getUser().getUsername()
-                    + "comments on "
-                    + new SimpleDateFormat("MM-DD-YY HH:mm:ss")
-                            .format(new Date()));
-            return convertView;
-        }
+				holder.commentDetail = (TextView) convertView
+						.findViewById(R.id.comment_detail_comment_display);
+				convertView.setTag(holder);
+			}
+			// picture is already there
+			else {
+				holder = (ViewHolder) convertView.getTag();
 
-        public class ViewHolder {
-            private TextView commentTitle;
-            private TextView commentDetail;
+			}
 
-            private int id;
+			Comment comment = data.get(position);
 
-            public void setId(int id) {
-                this.id = id;
-            }
-        }
-    }
+			Log.d("get project", "ok");
+			holder.commentDetail.setText(comment.getComment());
+			Log.d("set Text", "ok");
+			holder.commentTitle.setText(comment.getUser().getUsername()
+					+ "comments on "
+					+ new SimpleDateFormat("MM-DD-YY HH:mm:ss")
+							.format(new Date()));
+			return convertView;
+		}
+
+		public class ViewHolder {
+			private TextView commentTitle;
+			private TextView commentDetail;
+
+			private int id;
+
+			public void setId(int id) {
+				this.id = id;
+			}
+		}
+	}
 
 }

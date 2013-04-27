@@ -71,8 +71,8 @@ public class SplashScreen extends Activity {
                 new Handler().postDelayed(new Runnable() {
                     public void run() {
                         Intent intent = new Intent(SplashScreen.this, MenuScreen.class);
-                        SplashScreen.this.startActivity(intent);
-                        SplashScreen.this.finish();
+                        startActivity(intent);
+                        finish();
                         
                         // transition from splash to main menu
                         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);

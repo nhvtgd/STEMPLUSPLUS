@@ -20,6 +20,7 @@ public class ParseDatabase {
 	public static void initProject(Context context) {
 		Parse.initialize(context, "iqIztkJYN0f0Y8iPYLjhpVYYFpV9zmnpBAoKTP1s",
 				"4Z2u2qEfF4NtBq8PyIGjfewuhTU1iC7iEdxapoV5");
+		System.out.println("helo");
 	}
 
 	/**
@@ -74,7 +75,8 @@ public class ParseDatabase {
 			projectObject.put(StemPlusPlus.COMMENT_PARSE,
 				makeCommentArray(project.getComments()));
 		
-
+		projectObject.put(StemPlusPlus.PROJECT_RANKING_PARSE,
+				project.getProjectRanking());
 		projectObject.put(StemPlusPlus.PROFILE_PARSE,
 				project.getProfileImagePath());
 		projectObject.put(StemPlusPlus.STEP_PARSE, stepArray);
@@ -158,8 +160,9 @@ public class ParseDatabase {
 				.getString(StemPlusPlus.DESCRIPTION_PARSE);
 		String category = parseObject.getString(StemPlusPlus.CATEGORY_PARSE);
 		String profilePic = parseObject.getString(StemPlusPlus.PROFILE_PARSE);
-
+		int ranking = parseObject.getInt(StemPlusPlus.PROJECT_RANKING_PARSE);
 		Project newProject = new Project();
+		newProject.setProjectRanking(ranking);
 		newProject.setName(name);
 		newProject.setSteps(steps);
 		newProject.setDescription(description);

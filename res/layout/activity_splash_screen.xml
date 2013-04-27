@@ -15,7 +15,7 @@
         android:layout_marginBottom="20dp"
         android:adjustViewBounds="true"
         android:contentDescription="LOGO"
-        android:scaleType="fitXY"
+        android:scaleType="centerInside"
         android:src="@drawable/logo" />
 
     <TableLayout
@@ -27,7 +27,8 @@
         <TableRow
             android:id="@+id/TableRow01_Splash"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content" 
+            android:paddingBottom="20dp">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -35,9 +36,11 @@
                 android:src="@drawable/science" />
 
             <ImageView
+                android:adjustViewBounds="true"
+                android:cropToPadding="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/engineering" />
+                android:src="@drawable/technology" />
         </TableRow>
 
         <TableRow
@@ -53,8 +56,9 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/technology" />
+                android:src="@drawable/engineering" />
         </TableRow>
+
     </TableLayout>
 
     <ImageView

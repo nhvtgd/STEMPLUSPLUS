@@ -86,6 +86,7 @@ public class ProjectActivity extends StemPlusPlus {
         stepAdapter = new CustomizedStepAdapterforPosting(ProjectActivity.this,
                 steps);
         stepListView.setAdapter(stepAdapter);
+
     }
 
     private OnClickListener onclick = new OnClickListener() {
@@ -120,7 +121,6 @@ public class ProjectActivity extends StemPlusPlus {
             case R.id.commit_post_project:
                 name = nameText.getText().toString();
                 currentProject.setName(name);
-
                 description = desText.getText().toString();
                 currentProject.setDescription(description);
                 currentProject.setSteps(steps);

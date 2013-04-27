@@ -2,11 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AllProjectDisplayActivity"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    tools:context=".AllProjectDisplayActivity" >
 
     <mit.edu.stemplusplus.helper.MyHorizontalLayout
-        
         android:id="@+id/myphoto_all_project_display"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,10 +31,18 @@
 
         <Button
             android:id="@+id/add_project_all_project_display"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:text="@string/add_project_all_project_display" />
+            android:layout_marginBottom="@dimen/button_marginB"
+            android:layout_marginLeft="@dimen/button_marginL"
+            android:layout_marginRight="@dimen/button_marginR"
+            android:layout_marginTop="@dimen/button_marginT"
+            android:background="@drawable/custom_button_blue"
+            android:text="@string/add_project_all_project_display"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/white"
+            android:textSize="@dimen/small_button_text_size" />
     </RelativeLayout>
 
 </LinearLayout>
