@@ -14,6 +14,7 @@ import com.parse.ParseQuery;
 
 import mit.edu.stemplusplus.StemPlusPlus;
 import android.content.Context;
+import android.util.Log;
 
 public class ParseDatabase {
 	public static void initProject(Context context) {
@@ -349,6 +350,9 @@ public class ParseDatabase {
 			total = query.count();
 		} catch (ParseException e) {
 			e.printStackTrace();
+		} catch (RuntimeException e){
+			e.printStackTrace();
+			Log.d("total", "" + total);
 		}
 		if (total > 0) {
 			for (ParseObject object : query.find()) {
