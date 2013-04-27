@@ -33,7 +33,7 @@
     <string name ="media_button">Add Media</string>
     <string name ="change_button">Edit</string>
     <string name ="Project_name">Project Name</string>
-    <string name ="picture_prompt">Select Your Project Picture Here!</string>
+    <string name ="picture_prompt">Add a project picture and project description!</string>
     <string name ="Project_description">Project Description</string>
     <string name = "title_activity_project">ProjectActivity</string>
     <string name = "title_activity_store_project">StoreProjectActivity</string>
