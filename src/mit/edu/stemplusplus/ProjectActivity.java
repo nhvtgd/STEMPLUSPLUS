@@ -8,14 +8,19 @@ import mit.edu.stemplusplus.helper.History;
 import mit.edu.stemplusplus.helper.ParseDatabase;
 import mit.edu.stemplusplus.helper.Project;
 import mit.edu.stemplusplus.helper.Step;
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -28,7 +33,7 @@ import com.parse.SaveCallback;
 
 public class ProjectActivity extends StemPlusPlus {
     private Project currentProject;
-    private View clicked;
+    static View clicked;
     private String name;
     private Bitmap profilePic;
     private String description;
@@ -116,8 +121,7 @@ public class ProjectActivity extends StemPlusPlus {
             case R.id.commit_post_project:
                 name = nameText.getText().toString();
                 currentProject.setName(name);
-                
-                
+
                 description = desText.getText().toString();
                 
                 // when hitting commit button, if the user type in something in the project description, 
@@ -202,6 +206,7 @@ public class ProjectActivity extends StemPlusPlus {
         }
     };
 
+    @SuppressLint("NewApi")
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -217,24 +222,36 @@ public class ProjectActivity extends StemPlusPlus {
                     Bitmap bmp = BitmapFactory.decodeFile(imagePath.get(0));
                     if (bmp == null)
                         Log.d("doom", "bad");
-
                     ImageView image = (ImageView) findViewById(clicked.getId());
                     if (image == null)
                         Log.d("imageStep", "good");
-                    image.setImageBitmap(bmp);
                     switch (clicked.getId()) {
                     case R.id.profile_image_post_project:
+                        image.setImageBitmap(bmp);
+                        // Log.d("check2", "" + image.getId());
+                        image.setBackground(null);
+
                         currentProject.setProfilePic(bmp);
                         currentProject.setProfileImagePath(imagePath.get(0));
                         break;
                     case R.id.image_button_post_project:
+                        image.setImageBitmap(bmp);
+                        // Log.d("check2", "" + image.getId());
+                        image.setBackground(null);
                         currentStep.setMediaPath(imagePath.get(0));
                         break;
-                    case R.id.image_button_hidden:
+                    default:
+                        Log.d("check1", "" + clicked.getTag());
+                        image = (ImageView) stepListView
+                                .findViewWithTag(clicked.getTag());
+                        if (image == null) {
+                            Log.d("findView", "error");
+                        }
+                        image.setImageBitmap(bmp);
+                        image.setBackground(null);
                         currentStep.setMediaPath(imagePath.get(0));
                         break;
                     }
-                    stepListView.notify();
 
                 }
                 if (resultCode == RESULT_CANCELED) {
@@ -248,6 +265,93 @@ public class ProjectActivity extends StemPlusPlus {
 
     public void changeBack() {
 
+    }
+
+}
+
+class CustomizedStepAdapterforPosting extends BaseAdapter {
+    private ProjectActivity activity;
+    /** The collections of sellable objects */
+    private List<Step> data;
+    /** To inflate the view from an xml file */
+    private LayoutInflater inflater = null;
+    private ViewHolder holder;
+
+    public CustomizedStepAdapterforPosting(ProjectActivity a, List<Step> steps) {
+        activity = a;
+        data = steps;
+        inflater = (LayoutInflater) activity
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        holder = new ViewHolder();
+    }
+
+    @Override
+    public int getCount() {
+        // TODO Auto-generated method stub
+        return data.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        // TODO Auto-generated method stub
+        return data.get(position);
+    }
+
+    public ViewHolder getHolder() {
+        return holder;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        final int tag = position;
+        if (convertView == null) {
+            holder = new ViewHolder();
+            convertView = inflater.inflate(R.layout.hidden, null);
+            Log.d("get TextView", "ok");
+            holder.stepImage = (ImageView) convertView
+                    .findViewById(R.id.image_button_hidden);
+            holder.stepDescription = (EditText) convertView
+                    .findViewById(R.id.project_description_hidden);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
+        Step step = data.get(position);
+        Log.d("get project", "ok");
+        holder.stepDescription.setHint("step " + (position + 2)
+                + " description");
+        Log.d("set Text", "ok");
+        Log.d("set Image", "ok");
+        holder.stepImage.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentStep = new Intent(v.getContext(),
+                        CustomizedGallery.class);
+                Log.d("position", "" + tag);
+                ProjectActivity.clicked.setTag(tag);
+                ProjectActivity.clicked = v;
+                Log.d("check3", "" + ProjectActivity.clicked.getTag());
+                activity.startActivityForResult(intentStep, 1000);
+            }
+        });
+
+        return convertView;
+    }
+
+    public class ViewHolder {
+        private EditText stepDescription;
+        private ImageView stepImage;
+        private int id;
+
+        public void setId(int id) {
+            this.id = id;
+        }
+    }
+
+    @Override
+    public long getItemId(int position) {
+        // TODO Auto-generated method stub
+        return position;
     }
 
 }
