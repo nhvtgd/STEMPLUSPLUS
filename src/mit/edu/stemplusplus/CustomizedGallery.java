@@ -14,7 +14,9 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
+import com.actionbarsherlock.*;
+import com.actionbarsherlock.view.Menu;
+
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -148,7 +150,7 @@ public class CustomizedGallery extends StemPlusPlus {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.layout.activity_customized_gallery, menu);
+		getSupportMenuInflater().inflate(R.layout.activity_customized_gallery, menu);
 		return true;
 	}
 

@@ -2,13 +2,16 @@ package mit.edu.stemplusplus;
 
 import java.util.ArrayList;
 
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+
 import mit.edu.stemplusplus.helper.Project;
 import mit.edu.stemplusplus.helper.Step;
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
+import com.actionbarsherlock.*;
 
-public class StemPlusPlus extends Activity {
+public class StemPlusPlus extends SherlockActivity {
     public static final String NAME_PARSE = "name";
 	public static final String PROJECT_PARSE = "project";
 	public static String USERNAME_PARSE = "username";
@@ -24,6 +27,7 @@ public class StemPlusPlus extends Activity {
 	public static String IMAGE_INTENT = "image";
 	public static String GALLERY_INTENT = "gallery";
 	public static String PROJECT_INTENT = "Project";
+	public static String STEP_NAME = "stepName";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +38,7 @@ public class StemPlusPlus extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_stem_plus_plus, menu);
+		getSupportMenuInflater().inflate(R.menu.activity_stem_plus_plus, menu);
 		return true;
 	}
 

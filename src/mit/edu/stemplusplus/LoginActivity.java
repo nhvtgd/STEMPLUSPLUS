@@ -6,7 +6,9 @@ import com.parse.ParseUser;
 
 import android.os.Bundle;
 import android.content.Intent;
-import android.view.Menu;
+import com.actionbarsherlock.*;
+import com.actionbarsherlock.view.Menu;
+
 import android.view.View;
 
 public class LoginActivity extends StemPlusPlus {
@@ -50,7 +52,7 @@ public class LoginActivity extends StemPlusPlus {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.activity_login, menu);
+        getSupportMenuInflater().inflate(R.menu.activity_login, menu);
         return true;
     }
 }

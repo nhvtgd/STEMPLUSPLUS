@@ -116,8 +116,16 @@ public class ProjectActivity extends StemPlusPlus {
             case R.id.commit_post_project:
                 name = nameText.getText().toString();
                 currentProject.setName(name);
-
+                
+                
                 description = desText.getText().toString();
+                
+                // when hitting commit button, if the user type in something in the project description, 
+                // it should record the answer.
+                currentStep.setDescription(text.getText().toString());
+                steps.add(currentStep);
+                stepAdapter.notifyDataSetChanged();
+                
                 currentProject.setDescription(description);
                 currentProject.setSteps(steps);
 

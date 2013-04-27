@@ -1,0 +1,43 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".StepDisplay" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey" >
+
+        <EditText
+            android:id="@+id/step_name_step_display"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Step Name"
+            android:maxLines="1" 
+            android:focusableInTouchMode="true"
+            android:focusable="true"/>
+
+        <ImageView
+            android:id="@+id/step_image_step_display"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignRight="@id/step_name_step_display"
+            android:background="@drawable/step_edit_image"
+            android:maxHeight="50dp"
+            android:maxWidth="50dp"
+            android:paddingLeft="5dp" />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/step_detail_step_display"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="top|left"
+        android:inputType="textMultiLine"
+        android:hint="Step Detail"
+       
+        android:scrollHorizontally="false" />
+
+</LinearLayout>

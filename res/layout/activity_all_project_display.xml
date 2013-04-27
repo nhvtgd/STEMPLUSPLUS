@@ -12,14 +12,16 @@
         android:orientation="horizontal" >
     </mit.edu.stemplusplus.helper.MyHorizontalLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
         <GridView
             android:id="@+id/gridview_all_project_display"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0"
             android:gravity="center"
             android:horizontalSpacing="10dp"
             android:numColumns="2"
@@ -33,7 +35,6 @@
             android:id="@+id/add_project_all_project_display"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/button_marginB"
             android:layout_marginLeft="@dimen/button_marginL"
             android:layout_marginRight="@dimen/button_marginR"
@@ -43,6 +44,6 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/white"
             android:textSize="@dimen/small_button_text_size" />
-    </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

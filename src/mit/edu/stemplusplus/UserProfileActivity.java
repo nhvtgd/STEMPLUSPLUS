@@ -1,27 +1,26 @@
 package mit.edu.stemplusplus;
 
-import mit.edu.stemplusplus.helper.NavigateActionBar;
+import java.util.ArrayList;
+
 import mit.edu.stemplusplus.helper.ParseDatabase;
+import mit.edu.stemplusplus.helper.Project;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.TextView;
-import java.util.ArrayList;
-
-import com.parse.Parse;
-import com.parse.ParseException;
-import com.parse.ParseUser;
-
-import mit.edu.stemplusplus.helper.Project;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
-public class UserProfileActivity extends NavigateActionBar {
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+
+public class UserProfileActivity extends StemPlusPlus {
     String username;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,15 +56,12 @@ public class UserProfileActivity extends NavigateActionBar {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.activity_user_profile, menu);
+        getSupportMenuInflater().inflate(R.menu.activity_user_profile, menu);
         return true;
     }
     
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return navigate(item, this, true);
-    }
-    
+
+        
     private ArrayList<Project> getProjectByUser(){
         try {
             return ParseDatabase.getListOfProjectsOfUser(username);
