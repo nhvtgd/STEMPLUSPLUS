@@ -31,6 +31,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
+import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -46,6 +47,7 @@ public class ProjectDescription extends Activity {
 	CustomizedCommentAdapter commentAdapter;
 	EditText comment;
 	List<Comment> projectComments = new ArrayList<Comment>();
+	TextView likeIcon;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +110,8 @@ public class ProjectDescription extends Activity {
 			}
 		});
 		
+		
+		likeIcon = (TextView) findViewById(R.id.ranking_project_description);
 		
 		Button commentBtn = (Button) findViewById(R.id.comment_project_description);
 		commentBtn.setOnClickListener(new OnClickListener() {
@@ -173,11 +177,29 @@ public class ProjectDescription extends Activity {
 	}
 
 	private void upVote(Project project) {
-		project.incrementRank();
+		project.setProjectRanking(project.getProjectRanking() + 1);
+		likeIcon.setText("" +project.getProjectRanking());
+		updateRanking();
+
+		
+	}
+	
+	private void updateRanking(){
+		ParseQuery query = new ParseQuery(StemPlusPlus.PROJECT_PARSE);
+		try {
+			ParseObject object = query.get(selectedProject.getId());
+			object.put(StemPlusPlus.PROJECT_RANKING_PARSE, selectedProject.getProjectRanking());
+			object.saveInBackground();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private void downVote(Project project) {
-		project.decrementRank();
+		project.setProjectRanking(project.getProjectRanking() - 1);
+		likeIcon.setText(""+project.getProjectRanking());
+		updateRanking();
 	}
 
 	@Override

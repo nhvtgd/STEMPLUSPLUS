@@ -29,6 +29,7 @@ public class Project implements Serializable{
 	private ArrayList<? extends Object> images;
 	private String id;
 	private String profilePicPath;
+	private int projectRanking;
 
 	public Project() {
 		rank = null;
@@ -39,6 +40,7 @@ public class Project implements Serializable{
 		user = null;
 		name = "Tran";
 		this.profilePicPath = "";
+		this.projectRanking = 0;
 	}
 	
 	public Project(String name, String description) {
@@ -49,6 +51,7 @@ public class Project implements Serializable{
 		this.description = description;
 		user = null;
 		this.name = name;
+		this.projectRanking = 0;
 	}
 
 	/** this is for testing only, don't use */
@@ -56,6 +59,7 @@ public class Project implements Serializable{
 		this.images = imagePath;
 		this.description = description;
 		steps = new ArrayList<Step>();
+		this.projectRanking = 0;
 	}
 
 	public Project(String n, User u, String d, String c) {
@@ -67,6 +71,7 @@ public class Project implements Serializable{
 		description = d;
 		date = new Date();
 		category = c;
+		this.projectRanking = 0;
 	}
 	
 	
@@ -194,5 +199,13 @@ public class Project implements Serializable{
 	public String getProfileImagePath(){
 		return this.profilePicPath;
 		
+	}
+
+	public int getProjectRanking() {
+		return projectRanking;
+	}
+
+	public void setProjectRanking(int projectRanking) {
+		this.projectRanking = projectRanking;
 	}
 }

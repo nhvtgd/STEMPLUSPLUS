@@ -44,17 +44,15 @@ public class AllProjectDisplayActivity extends StemPlusPlus {
 	ImageAdapter adapter;
 
 	GridView imagegrid;
-	
+
 	Activity act = this;
-	
-	private static final String TITLE = "Project Title";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_all_project_display);
 		ParseDatabase.initProject(this);
-		
+
 		// call the horizontal layout
 		MyHorizontalLayout picture = (MyHorizontalLayout) findViewById(R.id.myphoto_all_project_display);
 		picture.setArrayList(myPicture);
@@ -72,14 +70,13 @@ public class AllProjectDisplayActivity extends StemPlusPlus {
 		/*********
 		 * Make test project here
 		 */
-		
+
 		GetData data = new GetData();
 		data.execute();
-		
 
 		Button addProjectButton = (Button) findViewById(R.id.add_project_all_project_display);
 		addProjectButton.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(v.getContext(), ProjectActivity.class);
@@ -140,6 +137,9 @@ public class AllProjectDisplayActivity extends StemPlusPlus {
 				Log.d("get TextView", "ok");
 				holder.projectImage = (ImageView) convertView
 						.findViewById(R.id.project_avatar_all_project_display);
+
+				holder.likeIcon = (TextView) convertView
+						.findViewById(R.id.ranking_all_project_display);
 				convertView.setTag(holder);
 			}
 			// picture is already there
@@ -150,18 +150,20 @@ public class AllProjectDisplayActivity extends StemPlusPlus {
 
 			final Project project = projects.get(position);
 			Log.d("get project", "ok");
-			holder.projectDescription.setText(TITLE + " " + project.getName());
+			holder.projectDescription.setText(project.getName());
 			Log.d("set Text", "ok");
-			
-			if (project.getProfileImagePath() != null && new File(project.getProfileImagePath()).exists()) {
+
+			if (project.getProfileImagePath() != null
+					&& new File(project.getProfileImagePath()).exists()) {
 
 				holder.projectImage.setImageBitmap(BitmapFactory
 						.decodeFile(project.getProfileImagePath()));
-				
-				
+
 			} else
-				holder.projectImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.test_image));
+				holder.projectImage.setImageBitmap(BitmapFactory
+						.decodeResource(getResources(), R.drawable.test_image));
 			Log.d("set Image", "ok");
+			
 			holder.projectImage.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -169,12 +171,13 @@ public class AllProjectDisplayActivity extends StemPlusPlus {
 					Intent i = new Intent(v.getContext(),
 							ProjectDescription.class);
 					i.putExtra(StemPlusPlus.PROJECT_INTENT, project);
-					
+
 					startActivity(i);
 
 				}
 			});
 
+			holder.likeIcon.setText(""+project.getProjectRanking());
 			holder.setId(position);
 
 			return convertView;
@@ -192,16 +195,17 @@ public class AllProjectDisplayActivity extends StemPlusPlus {
 	private class ViewHolder {
 		private TextView projectDescription;
 		private ImageView projectImage;
+		private TextView likeIcon;
 		private int id;
 
 		public void setId(int id) {
 			this.id = id;
 		}
 	}
-	
-	
+
 	private class GetData extends AsyncTask<Void, Void, ArrayList<Project>> {
 		ProgressDialog progressDialog;
+
 		/**
 		 * Some constant default query to call on the server side
 		 */
@@ -224,7 +228,6 @@ public class AllProjectDisplayActivity extends StemPlusPlus {
 		@Override
 		protected ArrayList<Project> doInBackground(Void... params) {
 
-
 			Log.d("dataBase", "Creat data base");
 
 			ArrayList<Project> project = null;
@@ -234,7 +237,7 @@ public class AllProjectDisplayActivity extends StemPlusPlus {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-				
+
 			return project;
 
 		}
@@ -257,15 +260,13 @@ public class AllProjectDisplayActivity extends StemPlusPlus {
 
 		}
 
-
-
 	}
 
-/*	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.layout.activity_all_project_display, menu);
-		return true;
-	}*/
+	/*
+	 * @Override public boolean onCreateOptionsMenu(Menu menu) { // Inflate the
+	 * menu; this adds items to the action bar if it is present.
+	 * getMenuInflater().inflate(R.layout.activity_all_project_display, menu);
+	 * return true; }
+	 */
 
 }
