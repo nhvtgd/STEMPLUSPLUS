@@ -9,7 +9,6 @@ import mit.edu.stemplusplus.helper.Comment;
 import mit.edu.stemplusplus.helper.ParseDatabase;
 import mit.edu.stemplusplus.helper.Project;
 import mit.edu.stemplusplus.helper.Step;
-import mit.edu.stemplusplus.helper.User;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -61,32 +60,34 @@ public class ProjectDescription extends Activity {
 				.getSerializableExtra(StemPlusPlus.PROJECT_INTENT);
 		ParseQuery query = new ParseQuery(StemPlusPlus.PROJECT_PARSE);
 		try {
-			final ParseObject projectObject = query.get(selectedProject.getId());
+			final ParseObject projectObject = query
+					.get(selectedProject.getId());
 			projectObject.refreshInBackground(new RefreshCallback() {
-				
+
 				@Override
 				public void done(ParseObject arg0, ParseException arg1) {
-					selectedProject = ParseDatabase.getBasicProjectFromParseObject(projectObject);
+					selectedProject = ParseDatabase
+							.getBasicProjectFromParseObject(projectObject);
 					projectComments = selectedProject.getComments();
-					if (projectComments != null && projectComments.size() > 0){
-						for (Comment c: projectComments){
+					if (projectComments != null && projectComments.size() > 0) {
+						for (Comment c : projectComments) {
 							addCommenDynamically(c.getComment());
 						}
-						
+
 					}
 				}
 			});
-			
+
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		setUpView();
-		
+
 	}
 
 	private void setUpView() {
-				
+
 		TextView projectDescription = (TextView) findViewById(R.id.description_project_description);
 		projectDescription.setText(selectedProject.getDescription());
 
@@ -109,39 +110,45 @@ public class ProjectDescription extends Activity {
 
 			}
 		});
-		
-		
+
 		likeIcon = (TextView) findViewById(R.id.ranking_project_description);
-		
+
 		Button commentBtn = (Button) findViewById(R.id.comment_project_description);
 		commentBtn.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				comment = (EditText) findViewById(R.id.edittext_comment_project_description);
 				comment.setVisibility(View.VISIBLE);
 				comment.requestFocus();
-				if(comment.requestFocus()) {
-				    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+				if (comment.requestFocus()) {
+					getWindow()
+							.setSoftInputMode(
+									WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 				}
 				comment.setOnEditorActionListener(new OnEditorActionListener() {
-				    @Override
-				    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-				        boolean handled = false;
-				        if (actionId == EditorInfo.IME_ACTION_DONE) {
-				            handleComment(comment.getText().toString());
-				            handled = true;
-				        }
-				        comment.setVisibility(View.GONE);
-				        return handled;
-				    }
+					@Override
+					public boolean onEditorAction(TextView v, int actionId,
+							KeyEvent event) {
+						boolean handled = false;
+						if (actionId == EditorInfo.IME_ACTION_DONE) {
+							handleComment(comment.getText().toString());
+							handled = true;
+						}
+						comment.setVisibility(View.GONE);
+						return handled;
+					}
 
 					private void handleComment(String string) {
 						projectComments.add(new Comment(string));
-						ParseQuery query = new ParseQuery(StemPlusPlus.PROJECT_PARSE);
+						ParseQuery query = new ParseQuery(
+								StemPlusPlus.PROJECT_PARSE);
 						try {
-							ParseObject projectObject = query.get(selectedProject.getId());
-							projectObject.put(StemPlusPlus.COMMENT_PARSE, ParseDatabase.makeCommentArray(projectComments));
+							ParseObject projectObject = query
+									.get(selectedProject.getId());
+							projectObject.put(StemPlusPlus.COMMENT_PARSE,
+									ParseDatabase
+											.makeCommentArray(projectComments));
 							projectObject.saveInBackground();
 						} catch (ParseException e) {
 							// TODO Auto-generated catch block
@@ -150,45 +157,43 @@ public class ProjectDescription extends Activity {
 						addCommenDynamically(string);
 					}
 				});
-				
+
 			}
 		});
 		List<Step> step = selectedProject.getSteps();
 		stepAdapter = new CustomizedStepAdapter(this, step);
 		stepListView = (ListView) findViewById(R.id.step_listView_project_description);
 		stepListView.setAdapter(stepAdapter);
-		
-				
-		
-		
-		
+
 	}
-	
-	private void addCommenDynamically(String comment){
+
+	private void addCommenDynamically(String comment) {
 		LinearLayout ll = (LinearLayout) findViewById(R.id.comment_list_view_project_description);
-		
+
 		View v = getLayoutInflater().inflate(R.layout.comment_display, null);
-		TextView commentTitle = (TextView) v.findViewById(R.id.comment_tittle_comment_display);
-		TextView commentDetail = (TextView) v.findViewById(R.id.comment_detail_comment_display);
-		commentTitle.setText("User comment on "  + new SimpleDateFormat("MM-dd-yy HH:mm:ss")
-			.format(new Date()));
+		TextView commentTitle = (TextView) v
+				.findViewById(R.id.comment_tittle_comment_display);
+		TextView commentDetail = (TextView) v
+				.findViewById(R.id.comment_detail_comment_display);
+		commentTitle.setText("User comment on "
+				+ new SimpleDateFormat("MM-dd-yy HH:mm:ss").format(new Date()));
 		commentDetail.setText(comment);
 		ll.addView(v);
 	}
 
 	private void upVote(Project project) {
 		project.setProjectRanking(project.getProjectRanking() + 1);
-		likeIcon.setText("" +project.getProjectRanking());
+		likeIcon.setText("" + project.getProjectRanking());
 		updateRanking();
 
-		
 	}
-	
-	private void updateRanking(){
+
+	private void updateRanking() {
 		ParseQuery query = new ParseQuery(StemPlusPlus.PROJECT_PARSE);
 		try {
 			ParseObject object = query.get(selectedProject.getId());
-			object.put(StemPlusPlus.PROJECT_RANKING_PARSE, selectedProject.getProjectRanking());
+			object.put(StemPlusPlus.PROJECT_RANKING_PARSE,
+					selectedProject.getProjectRanking());
 			object.saveInBackground();
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -198,7 +203,7 @@ public class ProjectDescription extends Activity {
 
 	private void downVote(Project project) {
 		project.setProjectRanking(project.getProjectRanking() - 1);
-		likeIcon.setText(""+project.getProjectRanking());
+		likeIcon.setText("" + project.getProjectRanking());
 		updateRanking();
 	}
 

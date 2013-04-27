@@ -20,6 +20,7 @@ public class ParseDatabase {
 	public static void initProject(Context context) {
 		Parse.initialize(context, "iqIztkJYN0f0Y8iPYLjhpVYYFpV9zmnpBAoKTP1s",
 				"4Z2u2qEfF4NtBq8PyIGjfewuhTU1iC7iEdxapoV5");
+		System.out.println("helo");
 	}
 
 	/**

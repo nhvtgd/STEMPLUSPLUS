@@ -1,34 +1,27 @@
 package mit.edu.stemplusplus;
 
-
 import java.util.List;
 
-import mit.edu.stemplusplus.CustomizedStepAdapter.ViewHolder;
 import mit.edu.stemplusplus.helper.Step;
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-public class CustomizedStepAdapterforPosting extends BaseAdapter{
-    private Activity activity;
+public class CustomizedStepAdapterforPosting extends BaseAdapter {
+    private ProjectActivity activity;
     /** The collections of sellable objects */
     private List<Step> data;
     /** To inflate the view from an xml file */
     private LayoutInflater inflater = null;
 
-    public CustomizedStepAdapterforPosting(Activity a, List<Step> steps) {
+    public CustomizedStepAdapterforPosting(ProjectActivity a, List<Step> steps) {
         activity = a;
         data = steps;
         inflater = (LayoutInflater) activity
@@ -66,25 +59,30 @@ public class CustomizedStepAdapterforPosting extends BaseAdapter{
             holder.stepDescription = (EditText) convertView
                     .findViewById(R.id.project_description_hidden);
             convertView.setTag(holder);
-        }
-        else {
+        } else {
             holder = (ViewHolder) convertView.getTag();
 
         }
         Step step = data.get(position);
         Log.d("get project", "ok");
-        holder.stepDescription.setText("step " + (position + 2) +" description");
-        Log.d("set Text", "ok");Log.d("set Image", "ok");
+        holder.stepDescription.setHint("step " + (position + 2)
+                + " description");
+        Log.d("set Text", "ok");
+        Log.d("set Image", "ok");
         holder.stepImage.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+
+                Intent intentStep = new Intent(v.getContext(),
+                        CustomizedGallery.class);
+                activity.startActivityForResult(intentStep, 1000);
 
             }
         });
 
         return convertView;
     }
+
     public class ViewHolder {
         private EditText stepDescription;
         private ImageView stepImage;
@@ -94,5 +92,5 @@ public class CustomizedStepAdapterforPosting extends BaseAdapter{
             this.id = id;
         }
     }
-   
+
 }
