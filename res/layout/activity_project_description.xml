@@ -5,12 +5,31 @@
     android:orientation="vertical"
     tools:context=".ProjectDescription" >
 
-    <TextView
-        android:id="@+id/projectName_project_description"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/grey"
-        android:text="Project Name" />
+        android:orientation="horizontal"
+        android:weightSum="1" >
+
+        <TextView
+            android:id="@+id/projectName_project_description"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:background="@color/grey"
+            android:gravity="center"
+            android:text="Project Overview" />
+
+        <TextView
+            android:id="@+id/ranking_project_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:background="@color/grey"
+            android:drawableTop="@drawable/like_icon"
+            android:gravity="center"
+            android:text="0" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/description_project_description"
@@ -45,21 +64,20 @@
             android:id="@+id/edittext_comment_project_description"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            
+            android:focusable="true"
             android:hint="Enter your comment"
             android:imeOptions="actionDone"
             android:inputType="text"
-            android:visibility="gone" 
-            android:focusable="true"/>
-        
+            android:visibility="gone" />
+
         <LinearLayout
-            android:orientation="vertical"
+            android:id="@+id/comment_list_view_project_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/comment_list_view_project_description"
-            android:layout_alignParentBottom ="true"
+            android:layout_alignParentBottom="true"
             android:layout_below="@id/step_listView_project_description"
-            ></LinearLayout>
+            android:orientation="vertical" >
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -70,27 +88,46 @@
 
             <Button
                 android:id="@+id/upvote_project_description"
+                android:layout_weight="0.33"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.3"
-                android:text="Upvote" >
-            </Button>
+                android:layout_marginBottom="@dimen/button_marginB"
+                android:layout_marginLeft="@dimen/button_marginL"
+                android:layout_marginRight="@dimen/button_marginR"
+                android:layout_marginTop="@dimen/button_marginT"
+                android:background="@drawable/custom_button_blue"
+                android:text="Up Vote"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white"
+                android:textSize="@dimen/small_button_text_size" />
 
             <Button
+                android:layout_weight="0.33"
                 android:id="@+id/downvote_project_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.3"
-                android:text="Downvote" >
-            </Button>
+                android:layout_marginBottom="@dimen/button_marginB"
+                android:layout_marginTop="@dimen/button_marginT"
+                android:background="@drawable/custom_button_blue"
+                android:text="Down Vote"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white"
+                android:textSize="@dimen/small_button_text_size" />
 
             <Button
+                android:layout_weight="0.33"
                 android:id="@+id/comment_project_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.3"
-                android:text="Comment" >
-            </Button>
+                android:layout_marginBottom="@dimen/button_marginB"
+                android:layout_marginLeft="@dimen/button_marginL"
+                android:layout_marginRight="@dimen/button_marginR"
+                android:layout_marginTop="@dimen/button_marginT"
+                android:background="@drawable/custom_button_blue"
+                android:text="Comment"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white"
+                android:textSize="@dimen/small_button_text_size" />
         </LinearLayout>
     </RelativeLayout>
 

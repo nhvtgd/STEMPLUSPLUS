@@ -88,6 +88,7 @@ public class ProjectActivity extends StemPlusPlus {
         stepAdapter = new CustomizedStepAdapterforPosting(ProjectActivity.this, steps);
         stepListView.setAdapter(stepAdapter);
         
+        
        
     }
     private OnClickListener onclick = new OnClickListener(){
