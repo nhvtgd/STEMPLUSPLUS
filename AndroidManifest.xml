@@ -91,10 +91,6 @@
             android:name="mit.edu.stemplusplus.UserProfileActivity"
             android:label="@string/title_activity_user_profile" >
         </activity>
-        <activity
-            android:name="mit.edu.stemplusplus.StepDisplay"
-            android:label="@string/title_activity_step_display" >
-        </activity>
     </application>
 
 </manifest>
