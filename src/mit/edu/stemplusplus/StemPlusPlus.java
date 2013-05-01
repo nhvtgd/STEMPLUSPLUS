@@ -2,14 +2,12 @@ package mit.edu.stemplusplus;
 
 import java.util.ArrayList;
 
+import mit.edu.stemplusplus.helper.Project;
+import mit.edu.stemplusplus.helper.Step;
+import android.os.Bundle;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 
-import mit.edu.stemplusplus.helper.Project;
-import mit.edu.stemplusplus.helper.Step;
-import android.app.Activity;
-import android.os.Bundle;
-import com.actionbarsherlock.*;
 
 public class StemPlusPlus extends SherlockActivity {
     public static final String NAME_PARSE = "name";
@@ -28,6 +26,8 @@ public class StemPlusPlus extends SherlockActivity {
 	public static String GALLERY_INTENT = "gallery";
 	public static String PROJECT_INTENT = "Project";
 	public static String STEP_NAME = "stepName";
+	public static String STEP_DETAIL ="stepDetail";
+	public static String STEP_IMAGE ="stepImage";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

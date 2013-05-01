@@ -33,7 +33,7 @@
         android:drawablePadding="0dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/project_avatar_all_project_display"
+        android:layout_alignTop="@+id/project_avatar_all_project_display"
         android:layout_alignRight="@+id/project_avatar_all_project_display"
         android:background="@color/grey"
         android:drawableTop="@drawable/like_icon"

@@ -57,8 +57,7 @@ public class CustomizedStepAdapter extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = inflater.inflate(R.layout.step_display, null);
-            holder.stepIcon = (ImageButton) convertView
-                    .findViewById(R.id.step_icon_project_description);
+            
             Log.d("get TextView", "ok");
             holder.stepImage = (ImageView) convertView
                     .findViewById(R.id.step_image_project_description);
@@ -76,7 +75,7 @@ public class CustomizedStepAdapter extends BaseAdapter {
         Step step = data.get(position);
 
         Log.d("get project", "ok");
-        holder.stepDescription.setText(step.getDescription());
+        holder.stepDescription.setText(step.getName());
         Log.d("set Text", "ok");
         if (step.getMediaPath() != null && new File(step.getMediaPath()).exists()) {
             

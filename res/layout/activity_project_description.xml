@@ -71,20 +71,24 @@
             android:inputType="text"
             android:visibility="gone" />
 
-        <LinearLayout
-            android:id="@+id/comment_list_view_project_description"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_below="@id/step_listView_project_description"
-            android:orientation="vertical" >
-        </LinearLayout>
+            android:layout_below="@id/step_listView_project_description" >
+
+            <LinearLayout
+                android:id="@+id/comment_list_view_project_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+            </LinearLayout>
+        </ScrollView>
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:weightSum="1" >
 
@@ -132,5 +136,4 @@
             android:textSize="@dimen/small_button_text_size" />
     </LinearLayout>
 
-    
 </LinearLayout>

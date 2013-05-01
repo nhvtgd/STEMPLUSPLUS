@@ -1,0 +1,38 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ShowOneStep" 
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/step_name_showOneStep"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Step Name"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" >
+    </TextView>
+
+    <ImageView
+        android:id="@+id/step_image_showOneStep"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_gravity="center_horizontal"
+        android:adjustViewBounds="true"
+        android:padding="0dp"
+        android:src="@drawable/step_test_image"
+        android:text="@string/hello_world" />
+    
+    <TextView
+        android:id="@+id/step_detail_showOneStep"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Step Detail"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+         >
+    </TextView>
+
+    
+
+</LinearLayout>

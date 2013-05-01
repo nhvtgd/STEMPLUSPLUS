@@ -23,21 +23,26 @@ public class Step implements Serializable {
     private String mediaPath;
     public static final String DESCRIPTION_STEP = "description";
     public static final String IMAGE_PATH_STEP = "imagePath";
+    public static final String NAME_STEP = "name";
+    private String name;
 
     public Step(String description, String mediaPath) {
-        this.description = description;
+    	setName("");
+    	this.description = description;
         this.mediaPath = mediaPath;
         comments = new ArrayList<Comment>();
         pastVersions = new ArrayList<Step>();
     }
 
     public Step(String d) {
+    	setName("");
         description = d;
         comments = new ArrayList<Comment>();
         pastVersions = new ArrayList<Step>();
     }
 
     public Step() {
+    	setName("");
         description = "";
         comments = new ArrayList<Comment>();
         pastVersions = new ArrayList<Step>();
@@ -92,4 +97,12 @@ public class Step implements Serializable {
     public void setMediaPath(String mediaPath) {
         this.mediaPath = mediaPath;
     }
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 }

@@ -63,6 +63,7 @@ public class ParseDatabase {
 						.getDescription());
 				stepObject.put(Step.IMAGE_PATH_STEP, project.getSteps().get(i)
 						.getMediaPath());
+				stepObject.put(Step.NAME_STEP, project.getSteps().get(i).getName());
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -134,6 +135,8 @@ public class ParseDatabase {
 				newStep = new Step(step.getJSONObject(i).getString(
 						Step.DESCRIPTION_STEP), step.getJSONObject(i)
 						.getString(Step.IMAGE_PATH_STEP));
+				newStep.setName(step.getJSONObject(i).getString(
+						Step.NAME_STEP));
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}

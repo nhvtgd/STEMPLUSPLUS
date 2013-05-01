@@ -16,12 +16,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,13 +31,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-import com.parse.FindCallback;
+import com.actionbarsherlock.view.Menu;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.RefreshCallback;
 
-public class ProjectDescription extends Activity {
+public class ProjectDescription extends StemPlusPlus{
 	Project selectedProject;
 	String projectDescription;
 	ArrayList<Step> projectSteps;
@@ -164,6 +165,20 @@ public class ProjectDescription extends Activity {
 		stepAdapter = new CustomizedStepAdapter(this, step);
 		stepListView = (ListView) findViewById(R.id.step_listView_project_description);
 		stepListView.setAdapter(stepAdapter);
+		stepListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				Step step = (Step) arg0.getItemAtPosition(arg2);
+				Intent i = new Intent(arg1.getContext(), ShowOneStep.class);
+				i.putExtra(STEP_NAME, step.getName());
+				i.putExtra(STEP_DETAIL, step.getDescription());
+				i.putExtra(STEP_IMAGE, step.getMediaPath());
+				startActivity(i);				
+			}
+			
+		});
 
 	}
 
@@ -210,7 +225,7 @@ public class ProjectDescription extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_project_description, menu);
+		getSupportMenuInflater().inflate(R.menu.activity_project_description, menu);
 		return true;
 	}
 
